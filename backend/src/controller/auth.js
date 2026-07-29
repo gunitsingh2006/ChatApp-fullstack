@@ -34,7 +34,7 @@ export async function signup(req,res){
         //IMPORTANT AFTER TOKEN
         res.cookie("jwt",token,{
             maxAge: 7*24*60*60*1000,
-            httOnly:true, // prevent from xss attacks ->. XSS (Cross-Site Scripting) is an attack where someone injects malicious JavaScript into a website, which then runs in other users' browsers — often without them knowing.
+            httpOnly: true, // prevent from xss attacks ->. XSS (Cross-Site Scripting) is an attack where someone injects malicious JavaScript into a website, which then runs in other users' browsers — often without them knowing.
             sameSite:"strict", // prevent csrf attacks ->. CSRF (Cross-Site Request Forgery) is an attack where a malicious site tricks your browser into making a request to a site you're already logged into — using your existing session/cookies — without you meaning to.
             secure: process.env.NODE_ENV === "production", // only over HTTPS
         })
@@ -48,10 +48,43 @@ export async function signup(req,res){
 
 
 export async function login(req,res){
-    res.send("login Route")
+    // res.send("login Route")
+    try {
+        //field checker
+        const {email, password} = req.body;
+        if(!email || !password){
+            return res.status(400).json({message:"All filed are required"});
+        }
+        //user checker
+        const user = await User.findOne({email})
+        if(!user) return res.status(401).json({message:"Invaild email or password"})
+        
+        //password checker
+        const isPasswordCorrect = await user.matchPassword(password)
+        if(!isPasswordCorrect) return res.status(401).json({message:"Invaild email or password"})
+
+        // CREATING JWT TOKEN SAME AS SIGNUP
+        const token = jwt.sign({userId:user._id}, process.env.JWT_SECRET_KEY,{
+            expiresIn:"7d" 
+        })
+        //IMPORTANT AFTER TOKEN
+        res.cookie("jwt",token,{
+            maxAge: 7*24*60*60*1000,
+            httpOnly: true, 
+            sameSite:"strict", 
+            secure: process.env.NODE_ENV === "production",
+        })
+        // somthing is created  
+        res.status(200).json({success:true,user})
+    } catch (error) {
+        console.log("ERROR in login controller", error);
+        res.status(500).json({message: "INTERNAL SERVER ERROR"});
+    }
 }
 
 
 export async function logout(req,res){
-    res.send("logout Route")
+    res.clearCookie("jwt")
+    res.status(200).json({ success:true, message: " Logout hogyyaaa bhai"})
+    
 }
