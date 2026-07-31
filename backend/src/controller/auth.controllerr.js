@@ -1,5 +1,6 @@
 import User from "../models/User.js"
 import jwt from "jsonwebtoken"
+import { upsertStreamUser } from "../lib/stream.js";
 
 export async function signup(req,res){
     // res.send("Signup Route")
@@ -26,7 +27,19 @@ export async function signup(req,res){
             email,password,fullName,
             pfp:randomAvatar,
         })
-        // TODO: CREATE THE USER IN STREAM AS WELL
+        // CREATE THE USER IN STREAM AS WELL
+        try {
+            await upsertStreamUser({
+        id: newUser._id.toString(),
+        name: newUser.fullName,
+        image: newUser.pfp || "",
+    });
+
+    console.log(`Stream user created for ${newUser._id}`);
+} catch (error) {
+    console.log("Error creating Stream user:", error);
+}
+
         // CREATING JWT TOKEN 
         const token = jwt.sign({userId:newUser._id}, process.env.JWT_SECRET_KEY,{
             expiresIn:"7d" // the expiry of the token generated in browser form signIn
@@ -86,5 +99,41 @@ export async function login(req,res){
 export async function logout(req,res){
     res.clearCookie("jwt")
     res.status(200).json({ success:true, message: " Logout hogyyaaa bhai"})
+    
+}
+
+
+export async function onboard(req,res){
+    // only in this ,method we can req the user 
+    try {
+        const userId = req.user._id;
+        const{fullName, bio, nativLanguage,learningLanguage, location} = req.body;
+        if(!fullName || !bio || !nativLanguage || !learningLanguage || !location ) {
+            return res.status(400).json({
+                message: "All fields are req",
+                missingFields:[
+                    !fullName && 'fullName',
+                    !bio && "bio",
+                    !nativLanguage && 'nativLanguage',
+                    !learningLanguage && 'learningLanguage',
+                    !location && "location"
+                ],
+            })
+        }
+
+        const updateUser = await User.findByIdAndUpdate(userId,{
+            ...req.body, // everything from req body
+            isOnboarded: true,
+        },{ new:true} )
+        if(!updateUser) return res.status(404).json({messgae:"User not found"});
+
+        // TODO:Update the user in Stream also
+
+        res.status(200).json({success: true , user: updateUser})
+
+    } catch (error) {
+        console.log("Error in onboard controller in auth", error);
+        res.status(500).json({messgae:"Internal Server Error"});
+    }
     
 }
