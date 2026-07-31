@@ -117,7 +117,7 @@ export async function onboard(req,res){
                     !nativLanguage && 'nativLanguage',
                     !learningLanguage && 'learningLanguage',
                     !location && "location"
-                ],
+                ].filter(Boolean), // cause this is returning false 
             })
         }
 
@@ -127,7 +127,18 @@ export async function onboard(req,res){
         },{ new:true} )
         if(!updateUser) return res.status(404).json({messgae:"User not found"});
 
-        // TODO:Update the user in Stream also
+        // Update the user in Stream also
+        try {
+            await upsertStreamUser({
+                id: updateUser._id.toString(),
+                name: updateUser.fullName,
+                image: updateUser.pfp || ","
+            })
+            console.log(`Stream user updated after onBoarding for ${updateUser.fullName}`);
+
+        } catch (streamError) {
+            console.log("Error in updating Stream user during onboarding: ", streamError);
+        }
 
         res.status(200).json({success: true , user: updateUser})
 

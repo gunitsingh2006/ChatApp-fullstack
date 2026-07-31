@@ -51,12 +51,12 @@ const userSchema = new mongoose.Schema(
 );
 // CreatedAt, UpdatedAt
 // this will show when the user is a member since created
-
 // make a pre hook , put before creating model
-// there should not be a visible password for users in db (hide pasword with #string)
+
+
+// HASHING - there should not be a visible password for users in db (hide pasword with #string)
 userSchema.pre("save", async function(next){
     if(!this.isModified("password")) return next(); // if pass not changed do not try to hash it
-
     // take pass 12345 => &$%#&^* (hashed)
     try {
         const salt = await bcrypt.genSalt(10);
@@ -74,6 +74,6 @@ userSchema.methods.matchPassword = async function(enteredPassword){
   return isPasswordCorrect;
 }
 
-
+// final create a model
 const User = mongoose.model("User", userSchema);
 export default User;

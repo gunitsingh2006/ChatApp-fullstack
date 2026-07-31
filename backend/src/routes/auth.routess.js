@@ -8,6 +8,12 @@ router.post("/signup", signup);
 router.post("/login", login);
 router.post("/logout", logout);
 
+// the protected route is create to check this authentication before going to any other 
 router.post("/onboarding", protectRoute , onboard )
+
+// to check who is loggedin or authenticated
+router.get("/me", protectRoute ,(req,res) =>{
+    res.status(200).json({success: true, user : req.user})
+})
 
 export default router;
