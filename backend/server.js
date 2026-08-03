@@ -7,6 +7,7 @@ dotenv.config()
 import cookieParser from 'cookie-parser';
 
 import authRoutes from "./src/routes/auth.routess.js"
+import userRoutes from "./src/routes/user.routess.js"
 import { connectDB } from "./src/lib/db.js";
 
 const app = express();
@@ -16,6 +17,7 @@ const PORT = process.env.PORT
 app.use(express.json()); // so that we can get input form signup/login/logout
 app.use(cookieParser());
 app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
 
 // THE ROUTE OR PATH IS SAME I.E API/AUTH
 
