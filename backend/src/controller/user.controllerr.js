@@ -1,6 +1,6 @@
 import User from "../models/User.js";
 
-export async function getRecommendatedUsers(req, res) {
+export async function getRecommendedUsers(req, res) {
     try {
         const currentUserId = req.user.id;
         const currentUser = req.user;
