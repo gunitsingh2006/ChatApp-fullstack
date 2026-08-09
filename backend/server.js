@@ -5,7 +5,7 @@ import express from "express";
 import dotenv from "dotenv"
 dotenv.config()
 import cookieParser from 'cookie-parser';
-
+import cors from "cors";
 import authRoutes from "./src/routes/auth.routess.js"
 import userRoutes from "./src/routes/user.routess.js"
 import { connectDB } from "./src/lib/db.js";
@@ -17,6 +17,12 @@ const PORT = process.env.PORT
 // further signup,login,logout is created 
 app.use(express.json()); // so that we can get input form signup/login/logout
 app.use(cookieParser());
+
+// solid reason to place it here before the routes is that we want to allow the frontend to send cookies to backend and also we want to allow the frontend to send requests to backend from different origin. So we need to use cors middleware before the routes.
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true,  // allow frontend to send cookies to backend
+}))
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
