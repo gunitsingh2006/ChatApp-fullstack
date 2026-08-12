@@ -32,11 +32,12 @@ function App(){
 
       <Routes>
           {/* TODO: make a webpage about application then link to login and signup */}
-        <Route path="/" element={authData? <HomePage /> : <Navigate to="/signup" />} /> 
+        {/* <Route path="/" element={authData? <HomePage /> : <Navigate to="/signup" />} />  */}
         
-        <Route path="/" element={authData? <HomePage /> : <Navigate to="/signup" />} />
-        <Route path="/signup" element={!authData ? <SignupPage /> : <Navigate to="/login" />} />
-        <Route path="/login" element={!authData ? <LoginPage /> : <Navigate to="/home" />} />
+        <Route path="/" element={authData? <HomePage /> : <Navigate to="/login" />} />
+        <Route path="/signup" element={!authData ? <SignupPage /> : <Navigate to="/" />} />
+        <Route path="/login" element={!authData ? <LoginPage /> : <Navigate to="/" />} />
+        {/* <Route path="/home" element={!authData ? <LoginPage /> : <Navigate to="/home" />} /> */}
         <Route path="/onboarding" element={authData ? <OnboardingPage /> : <Navigate to="/login" />} />
         <Route path="/call" element={authData ? <CallPage /> : <Navigate to="/login" />} />
         <Route path="/chat" element={authData ? <ChatPage /> : <Navigate to="/login" />} />

@@ -3,6 +3,7 @@ import { Earth } from "lucide-react";
 import { Link } from "react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../lib/axios";
+import { signup } from "../lib/api";
 
 function SignupPage() {
   const [signupData, setSignupData] = useState({
@@ -14,11 +15,8 @@ function SignupPage() {
   // using tanstack react query for submit button
   const queryClient = useQueryClient();
 
-  const {mutate, isPending, error} = useMutation({
-    mutationFn: async() => {
-      const response = await axiosInstance.post("/auth/signup" , signupData);  // we are sending this signup data to backend
-      return response.data;
-    },
+  const {mutate:signupMutation, isPending, error} = useMutation({
+    mutationFn : signup,  // signup function inside api.js
     // the page will get reloaded
     onSuccess:()=>  queryClient.invalidateQueries({queryKey: ["authUser"]}),
     
@@ -26,7 +24,7 @@ function SignupPage() {
 
   const handleSignup = (e) => {
     e.preventDefault();
-    mutate()
+    signupMutation(signupData)
   };
 
 
@@ -46,6 +44,13 @@ function SignupPage() {
                   </span>
                 </Link>
                 </div>
+
+                {/* ERROR MESSAGE IF ANY */}
+                {error && (
+                  <div className="alert alert-error mb-4">
+                    <span>{error.response.data.message}</span>
+                  </div>
+                )}
 
                 <div className="w-full">
                 <form onSubmit={handleSignup}>
