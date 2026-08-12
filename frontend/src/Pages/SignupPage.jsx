@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Earth } from "lucide-react";
 import { Link } from "react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { axiosInstance } from "../lib/axios";
 import { signup } from "../lib/api";
 
 function SignupPage() {
@@ -122,7 +121,20 @@ function SignupPage() {
 
                     <button className="btn btn-primary w-full" type="submit">
                       {/* Create Account */}
-                      {isPending ? "Signing Up..." : "Create Account"}
+                      {/* {isPending ? "Signing Up..." : "Create Account"} */}
+                      {isPending ? 
+                      (
+                        <>
+                        <span className="loading loading-spinner loding-xs"></span>
+                        Loading...
+                        </>
+                      )
+                      : 
+                      (
+                        "Create Account"
+                      )
+                      }
+
                     </button>
 
                     <div className="text-center mt-4">
