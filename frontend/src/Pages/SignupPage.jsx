@@ -1,9 +1,138 @@
+import { useState } from "react";
+import { Earth } from "lucide-react";
+import { Link } from "react-router";
+
 function SignupPage() {
-    return (
-        <div>
-            <h1>Signup Page</h1>
+  const [signupData, setSignupData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+  });
+
+  const handleSignup = (e) => {
+    e.preventDefault();
+  };
+
+
+  return (
+    <div className="h-screen flex items-center justify-center p-4 sm:p-6 md:p-8 "
+      data-theme="business">
+      <div className="border border-primary/25 flex flex-col lg:flex-row w-full max-w-5xl mx-auto bg-base-100 rounded-2xl shadow-xl overflow-hidden">
+
+        {/* SINGUP FROM - LEFT SIDE*/}
+        <div className="w-full lg:w-1/2 p-4 sm:p-8flex flex-col">
+          {/* LOGO*/}
+                <div className="flex items-center justify-start mb-4 gap-2">
+                <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                  <Earth className="w-12 h-12 text-primary" />
+                  <span className="text-4xl font-extrabold font-mono bg-clip-text text-transparent bg-linear-to-r from-primary to-secondary tracking-wider" >
+                  G-ChatApp
+                  </span>
+                </Link>
+                </div>
+
+                <div className="w-full">
+                <form onSubmit={handleSignup}>
+                  <div className="space-y-4">
+                    <div className="">
+                      <h2 className="text-2xl font-semibold">Create an account</h2>
+                      <p className="text-sm opacity-70">
+                        Join G ChatApp to start your language learning adventure!!
+                      </p>
+                    </div>
+
+                    <div className="space-y-3">
+                      {/* NAME */}
+                      <div className="form-control w-full ">
+                        <label className="label">
+                          <span className="label-text">Full Name</span>
+                        </label>
+
+                        <input type="text"
+                          placeholder="John Doe"
+                          className="input input-bordered w-full" 
+                          value={signupData.fullName}
+                          onChange={(e)=> setSignupData({
+                            ...signupData, fullName: e.target.value})} required
+                        />                     
+                      </div>
+                      {/* EMAIL */}
+                      <div className="form-control w-full ">
+                        <label className="label">
+                          <span className="label-text">Email</span>
+                        </label>
+
+                        <input type="email"
+                          placeholder="johndoe@gmail.com"
+                          className="input input-bordered w-full" 
+                          value={signupData.email}
+                          onChange={(e)=> setSignupData({
+                            ...signupData, email: e.target.value})} required
+                        />                     
+                      </div>
+                      {/* PASSWORD */}
+                      <div className="form-control w-full ">
+                        <label className="label">
+                          <span className="label-text">Password</span>
+                        </label>
+
+                        <input type="password"
+                          placeholder="*********"
+                          className="input input-bordered w-full" 
+                          value={signupData.password}
+                          onChange={(e)=> setSignupData({
+                            ...signupData, password: e.target.value})} required
+                        />
+                        <p>Password must be atleast 6 character long</p>               
+                      </div>
+
+                      {/* TERMS AND CONDITIONS */}
+                      <div className="form-control">
+                        <label className="label cursor-pointer justify-start gap-2">
+                          <input type="checkbox" className="checkbox checkbox-sm" required />
+                          <span className="text-xs leading-tight">
+                            I agree to the{" "}
+                            <span className="text-primary hover:underline">terms of service</span> and{' '}
+                            <span className="text-primary hover:underline">privacy policy</span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <button className="btn btn-primary w-full" type="submit">
+                      Create Account
+                    </button>
+
+                    <div className="text-center mt-4">
+                      <p className="text-sm">
+                        Alerady have an account? {" "}
+                        <Link to="/login" className="text-primary hover:underline">
+                            Sign In
+                        </Link>
+                      </p>
+                    </div>
+                </div>
+            </form>
+          </div>
         </div>
-    );
+
+        {/* RIGHT SIDE */}
+        <div className="hidden lg:flex w-full lg:w-1/2 bg-primary/10 items-center justify-center">
+            <div className="max-w-md p-8">
+              <div className="relative aspect-square max-w-sm mx-auto">
+                <img src="videocall.png" alt="Language collection illustraction" className="w-full h-full" />
+              </div>
+
+              <div className="text-center space-y-3">
+                <h2 className="text-xl font-semibold">Connect with language partners worldwide</h2>
+                <p className="opacity-70">Practice conversation, make friends, and improve your language skills together</p>
+              </div>
+            </div>
+        </div>
+
+      </div>
+    </div>
+  );
 }
 
 export default SignupPage;

@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router'
+import { Routes, Route, Navigate } from 'react-router'
 import HomePage from './Pages/HomePage'
 import CallPage from './Pages/CallPage'
 import ChatPage from './Pages/ChatPage'
@@ -13,14 +13,15 @@ import { axiosInstance } from './lib/axios.js'
 
 
 function App(){
-  const {data , isLoading, error} = useQuery({queryKey:["todos"],
-    // it alows us to fetch data from backend more then 1 time if it gets fails cause it think that the data is not fetched and some problem from server side ,, thats why we use this queryfn tanstack  BEYOND  useState useEffect and useReducer
+  // it alows us to fetch data from backend more then 1 time if it gets fails cause it think that the data is not fetched and some problem from server side ,, thats why we use this queryfn tanstack  BEYOND  useState useEffect and useReducer
+  const {data:authData , isLoading, error} = useQuery({queryKey:["authUser"],
     queryFn: async() => {
       const res = await axiosInstance.get("/auth/me")
       return res.data
     },
     retry:false, // it will not retry to fetch the data if it fails
   });  
+  const data = authData?.user;  // optional chaining to avoid error if authData is undefined
   console.log(data);
   
   return(
@@ -30,13 +31,16 @@ function App(){
       {/* <button onClick={()=> toast.success("Bhechooooo")}>Create the toast</button> */}
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/onboarding" element={<OnboardingPage />} />
-        <Route path="/call" element={<CallPage />} />
-        <Route path="/chat" element={<ChatPage />} />
-        <Route path="/notifications" element={<NotificationPage />} />
+          {/* TODO: make a webpage about application then link to login and signup */}
+        <Route path="/" element={authData? <HomePage /> : <Navigate to="/signup" />} /> 
+        
+        <Route path="/" element={authData? <HomePage /> : <Navigate to="/signup" />} />
+        <Route path="/signup" element={!authData ? <SignupPage /> : <Navigate to="/login" />} />
+        <Route path="/login" element={!authData ? <LoginPage /> : <Navigate to="/home" />} />
+        <Route path="/onboarding" element={authData ? <OnboardingPage /> : <Navigate to="/login" />} />
+        <Route path="/call" element={authData ? <CallPage /> : <Navigate to="/login" />} />
+        <Route path="/chat" element={authData ? <ChatPage /> : <Navigate to="/login" />} />
+        <Route path="/notifications" element={authData ? <NotificationPage /> : <Navigate to="/login" />} />
       </Routes>
 
       {/* to use the toaster  */}
