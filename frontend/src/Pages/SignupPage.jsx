@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Earth } from "lucide-react";
 import { Link } from "react-router";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { axiosInstance } from "../lib/axios";
 
 function SignupPage() {
   const [signupData, setSignupData] = useState({
@@ -9,8 +11,22 @@ function SignupPage() {
     password: "",
   });
 
+  // using tanstack react query for submit button
+  const queryClient = useQueryClient();
+
+  const {mutate, isPending, error} = useMutation({
+    mutationFn: async() => {
+      const response = await axiosInstance.post("/auth/signup" , signupData);  // we are sending this signup data to backend
+      return response.data;
+    },
+    // the page will get reloaded
+    onSuccess:()=>  queryClient.invalidateQueries({queryKey: ["authUser"]}),
+    
+  });
+
   const handleSignup = (e) => {
     e.preventDefault();
+    mutate()
   };
 
 
@@ -100,7 +116,8 @@ function SignupPage() {
                     </div>
 
                     <button className="btn btn-primary w-full" type="submit">
-                      Create Account
+                      {/* Create Account */}
+                      {isPending ? "Signing Up..." : "Create Account"}
                     </button>
 
                     <div className="text-center mt-4">

@@ -4,6 +4,8 @@ import { protectRoute,  } from '../middlewear/auth.middlewear.js';
 import { onboard } from '../controller/auth.controllerr.js';
 const router = express.Router();
 
+// all function are defined in controller
+//  EVERY TIME AN OBJECT IS CREATED
 router.post("/signup", signup);
 router.post("/login", login);
 router.post("/logout", logout);
