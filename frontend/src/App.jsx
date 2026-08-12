@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast'
 import { axiosInstance } from './lib/axios.js'
+import PageLoader from './components/PageLoader.jsx'
 
 
 function App(){
@@ -23,7 +24,12 @@ function App(){
   });  
   const data = authData?.user;  // optional chaining to avoid error if authData is undefined
   console.log(data);
+
+
+  // while loading 
+  if (true) return <PageLoader/>
   
+
   return(
     <div className=" h-screen " data-theme="coffee">
       {/* <h1>Welcome to ChatApp</h1>
