@@ -28,6 +28,10 @@ const OnboardingPage = () => {
       toast.success("Profile onboarded successfully");
       QueryClient.invalidateQueries;
     },
+
+    onError:(error)=>{
+        toast.error(error.response.data.message);
+    }
   });
 
   const handleSubmit = (e) => {
@@ -122,21 +126,16 @@ const OnboardingPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* NATIVE LANGUAGE */}
               <div className="form-control">
-                <label className="floating-label">
-                  <span className="l  text-xl">Native Language</span>
+                <label className="label">
+                  <span className="label-text">Native Language</span>
                 </label>
                 <select
                   name="nativeLanguage"
                   value={formState.nativeLanguage}
-                  onChange={(e) =>
-                    setFormState({
-                      ...formState,
-                      nativeLanguage: e.target.value,
-                    })
-                  }
+                  onChange={(e) => setFormState({ ...formState, nativeLanguage: e.target.value })}
                   className="select select-bordered w-full"
                 >
-                  <option value="">Select Your native Language</option>
+                  <option value="">Select your native language</option>
                   {LANGUAGES.map((lang) => (
                     <option key={`native-${lang}`} value={lang.toLowerCase()}>
                       {lang}
@@ -147,23 +146,18 @@ const OnboardingPage = () => {
 
               {/* LEARNING LANGUAGE */}
               <div className="form-control">
-                <label className="floating-label">
-                  <span className="l  text-xl">Native Language</span>
+                <label className="label">
+                  <span className="label-text">Learning Language</span>
                 </label>
                 <select
                   name="learningLanguage"
                   value={formState.learningLanguage}
-                  onChange={(e) =>
-                    setFormState({
-                      ...formState,
-                      learningLanguage: e.target.value,
-                    })
-                  }
+                  onChange={(e) => setFormState({ ...formState, learningLanguage: e.target.value })}
                   className="select select-bordered w-full"
                 >
-                  <option value="">Select Language You're Learning</option>
+                  <option value="">Select language you're learning</option>
                   {LANGUAGES.map((lang) => (
-                    <option key={`native-${lang}`} value={lang.toLowerCase()}>
+                    <option key={`learning-${lang}`} value={lang.toLowerCase()}>
                       {lang}
                     </option>
                   ))}
@@ -222,6 +216,8 @@ const OnboardingPage = () => {
                 </>
             )}
             </button>
+
+            
           </form>
         </div>
       </div>

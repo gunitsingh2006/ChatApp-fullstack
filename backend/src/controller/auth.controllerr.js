@@ -107,14 +107,14 @@ export async function onboard(req,res){
     // only in this ,method we can req the user 
     try {
         const userId = req.user._id;
-        const{fullName, bio, nativLanguage,learningLanguage, location} = req.body;
-        if(!fullName || !bio || !nativLanguage || !learningLanguage || !location ) {
+        const{fullName, bio, nativeLanguage,learningLanguage, location} = req.body;
+        if(!fullName || !bio || !nativeLanguage || !learningLanguage || !location ) {
             return res.status(400).json({
-                message: "All fields are req",
+                message: "All fields are required",
                 missingFields:[
                     !fullName && 'fullName',
                     !bio && "bio",
-                    !nativLanguage && 'nativLanguage',
+                    !nativeLanguage && 'nativeLanguage',
                     !learningLanguage && 'learningLanguage',
                     !location && "location"
                 ].filter(Boolean), // cause this is returning false 

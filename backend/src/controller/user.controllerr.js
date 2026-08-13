@@ -24,7 +24,7 @@ export async function getMyFriends(req, res) {
     try {
         const user = await User.findById(req.user.id)
         .select("friends")
-        .populate("friends", "fullName pfp bio location learningLanguage nativLanguage"); // select command will select only the friends ID and populate will get the details of friends from the user model
+        .populate("friends", "fullName pfp bio location learningLanguage nativeLanguage"); // select command will select only the friends ID and populate will get the details of friends from the user model
         res.status(200).json({ friends: user.friends });
     } catch (error) {
         console.log("Error in the getMyFriends Controller", error.message)
@@ -120,12 +120,12 @@ export async function getFriendRequests(req,res){
             recipient: req.user.id,
             srtatus: "pending",
         })
-        .populate("sender", "fullName pfp learningLanguage nativLanguage")
+        .populate("sender", "fullName pfp learningLanguage nativeLanguage")
 
         const acceptedRequests = await FriendRequest.find({
             recipient: req.user.id,
             status: "accepted",
-        }).populate("sender", "fullName pfp learningLanguage nativLanguage")
+        }).populate("sender", "fullName pfp learningLanguage nativeLanguage")
 
         res.status(200).json({incomingRequests, acceptedRequests});
 
@@ -140,7 +140,7 @@ export async function getOutgoingFriendRequests(req,res){
         const outgoingRequests = await FriendRequest.find({
             sender: req.user.id,
             status: "pending",
-        }).populate("recipient", "fullName pfp learningLanguage nativLanguage");
+        }).populate("recipient", "fullName pfp learningLanguage nativeLanguage");
         
         res.status(200).json({outgoingRequests});
     } catch (error) {
