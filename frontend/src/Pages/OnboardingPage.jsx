@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { completeOnboarding } from "../lib/api";
 import { CameraIcon, LoaderIcon, ShipWheelIcon, ShuffleIcon } from "lucide-react";
 import { LANGUAGES } from "../constants";
+import { useNavigate } from "react-router";
 
 const OnboardingPage = () => {
   const { authUser } = useAuthUser();
@@ -27,6 +28,7 @@ const OnboardingPage = () => {
     onSuccess: () => {
       toast.success("Profile onboarded successfully");
       QueryClient.invalidateQueries;
+      navigate("/home");
     },
 
     onError:(error)=>{
@@ -39,6 +41,10 @@ const OnboardingPage = () => {
     onboardingMutation(formState);
   };
 
+
+
+  const navigate = useNavigate();
+
   // for avatar generater
   const handleRandomAvatar = () => {
     const idx = Math.floor(Math.random() * 500) + 1; // 1-500 included
@@ -46,6 +52,7 @@ const OnboardingPage = () => {
 
     setFormState({ ...formState, pfp: randomAvatar });
     toast.success("Random profile picture generated!");
+    
   };
 
   return (

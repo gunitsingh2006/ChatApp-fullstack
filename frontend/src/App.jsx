@@ -65,7 +65,9 @@ function App() {
 
         <Route
           path="/login"
-          element={!isAuthenticated ? <LoginPage /> : <Navigate to="/home" />}
+          element={!isAuthenticated ? <LoginPage /> : <Navigate to={
+            isOnboarded ? "/home" : "/onboarding"
+          } />}
         />
 
         <Route
