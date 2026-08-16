@@ -44,13 +44,21 @@ function App() {
         <Route
           path="/signup"
           element={
-            !isAuthenticated ? <SignupPage /> : <Navigate to={isOnboarded ? "/" : "/onboarding"} />
+            !isAuthenticated ? (
+              <SignupPage />
+            ) : (
+              <Navigate to={isOnboarded ? "/" : "/onboarding"} />
+            )
           }
         />
         <Route
           path="/login"
           element={
-            !isAuthenticated ? <LoginPage /> : <Navigate to={isOnboarded ? "/" : "/onboarding"} />
+            !isAuthenticated ? (
+              <LoginPage />
+            ) : (
+              <Navigate to={isOnboarded ? "/" : "/onboarding"} />
+            )
           }
         />
         <Route
@@ -89,37 +97,35 @@ function App() {
           }
         />
 
-<Route
-  path="/home"
-  element={
-    isAuthenticated && isOnboarded ? (
-      <Layout showSidebar={true}>
-        <HomePage />
-      </Layout>
-    ) : (
-      <Navigate
-        to={!isAuthenticated ? "/login" : "/onboarding"}
-        replace
-      />
-    )
-  }
-/>  
-        
         <Route
-  path="/onboarding"
-  element={
-    !isAuthenticated ? (
-      <Navigate to="/login" replace />
-    ) : isOnboarded ? (
-      <Navigate to="/home" replace />
-    ) : (
-      <OnboardingPage />
-    )
-  }
-/>
-        
-      </Routes>
+          path="/home"
+          element={
+            isAuthenticated && isOnboarded ? (
+              <Layout showSidebar={true}>
+                <HomePage />
+              </Layout>
+            ) : (
+              <Navigate
+                to={!isAuthenticated ? "/login" : "/onboarding"}
+                replace
+              />
+            )
+          }
+        />
 
+        <Route
+          path="/onboarding"
+          element={
+            !isAuthenticated ? (
+              <Navigate to="/login" replace />
+            ) : isOnboarded ? (
+              <Navigate to="/home" replace />
+            ) : (
+              <OnboardingPage />
+            )
+          }
+        />
+      </Routes>
 
       {/* to use the toaster  */}
       <Toaster />
