@@ -1,19 +1,21 @@
 import { useState } from "react";
 import useAuthUser from "../hooks/useAuthUser";
-import {
-  QueryClient,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { completeOnboarding } from "../lib/api";
-import { CameraIcon, LoaderIcon, ShipWheelIcon, ShuffleIcon } from "lucide-react";
+import {
+  CameraIcon,
+  LoaderIcon,
+  ShipWheelIcon,
+  ShuffleIcon,
+} from "lucide-react";
 import { LANGUAGES } from "../constants";
 import { useNavigate } from "react-router";
 
 const OnboardingPage = () => {
   const { authUser } = useAuthUser();
-  const queryClient = useQueryClient;
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const [formState, setFormState] = useState({
     fullName: authUser?.fullName || "",
     bio: authUser?.bio || "",
@@ -25,15 +27,19 @@ const OnboardingPage = () => {
 
   const { mutate: onboardingMutation, isPending } = useMutation({
     mutationFn: completeOnboarding,
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Profile onboarded successfully");
-      QueryClient.invalidateQueries;
-      navigate("/home");
+
+      await queryClient.invalidateQueries({
+        queryKey: ["authUser"],
+      });
+
+      navigate("/home", { replace: true });
     },
 
-    onError:(error)=>{
-        toast.error(error.response.data.message);
-    }
+    onError: (error) => {
+      toast.error(error?.response?.data?.message || "Onboarding failed");
+    },
   });
 
   const handleSubmit = (e) => {
@@ -41,19 +47,19 @@ const OnboardingPage = () => {
     onboardingMutation(formState);
   };
 
-
-
-  const navigate = useNavigate();
-
   // for avatar generater
-  const handleRandomAvatar = () => {
-    const idx = Math.floor(Math.random() * 500) + 1; // 1-500 included
-    const randomAvatar = `https://testingbot.com/free-online-tools/random-avatar/${idx}.png`;
+ const handleRandomAvatar = () => {
+  const idx = Math.floor(Math.random() * 500) + 1;
 
-    setFormState({ ...formState, pfp: randomAvatar });
-    toast.success("Random profile picture generated!");
-    
-  };
+  const randomAvatar = `https://testingbot.com/free-online-tools/random-avatar/${idx}.png`;
+
+  setFormState({
+    ...formState,
+    pfp: randomAvatar,
+  });
+
+  toast.success("Random profile picture generated!");
+};
 
   return (
     <div
@@ -86,9 +92,10 @@ const OnboardingPage = () => {
               {/* GENERATE RANDOM AVATAR BUTTON */}
               <div className="flex items-center gap-2">
                 <button
-                  onClick={handleRandomAvatar}
-                  className="btn btn-neutral"
-                >
+  type="button"
+  onClick={handleRandomAvatar}
+  className="btn btn-neutral"
+>
                   <ShuffleIcon className="size-4 mr-2" />
                   Regenerate Avatar
                 </button>
@@ -139,7 +146,12 @@ const OnboardingPage = () => {
                 <select
                   name="nativeLanguage"
                   value={formState.nativeLanguage}
-                  onChange={(e) => setFormState({ ...formState, nativeLanguage: e.target.value })}
+                  onChange={(e) =>
+                    setFormState({
+                      ...formState,
+                      nativeLanguage: e.target.value,
+                    })
+                  }
                   className="select select-bordered w-full"
                 >
                   <option value="">Select your native language</option>
@@ -159,7 +171,12 @@ const OnboardingPage = () => {
                 <select
                   name="learningLanguage"
                   value={formState.learningLanguage}
-                  onChange={(e) => setFormState({ ...formState, learningLanguage: e.target.value })}
+                  onChange={(e) =>
+                    setFormState({
+                      ...formState,
+                      learningLanguage: e.target.value,
+                    })
+                  }
                   className="select select-bordered w-full"
                 >
                   <option value="">Select language you're learning</option>
@@ -178,7 +195,6 @@ const OnboardingPage = () => {
                 <span className="label-text text-xl">Location</span>
               </label>
               <div className="relative">
-
                 <input
                   type="text"
                   name="location"
@@ -191,7 +207,6 @@ const OnboardingPage = () => {
                 />
               </div>
             </div>
-
 
             {/* TODO:Dob and email confirming */}
             {/* <div>
@@ -207,24 +222,24 @@ const OnboardingPage = () => {
                 </label>
               </div> */}
 
-            
             {/* ONBOARDING BUTTON */}
-            <button className="btn btn-primary w-full"  disabled={isPending} type="submit"
+            <button
+              className="btn btn-primary w-full"
+              disabled={isPending}
+              type="submit"
             >
-            {!isPending ? (
+              {!isPending ? (
                 <>
-                <ShipWheelIcon className="size-5 mr-2"/>
-                Complete Onboarding
+                  <ShipWheelIcon className="size-5 mr-2" />
+                  Complete Onboarding
                 </>
-            ):(
+              ) : (
                 <>
-                <LoaderIcon className="animate-spin size-5 mr-2"/>
-                Onboarding...
+                  <LoaderIcon className="animate-spin size-5 mr-2" />
+                  Onboarding...
                 </>
-            )}
+              )}
             </button>
-
-              
           </form>
         </div>
       </div>

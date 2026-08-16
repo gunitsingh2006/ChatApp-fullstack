@@ -1,22 +1,26 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { login } from "../lib/api";
-import { Link } from "react-router";
+import { Link,  } from "react-router";
 import { Earth } from "lucide-react";
+import { useNavigate } from "react-router";
 
 const LoginPage=()=> {
-const [loginData, setLoginData] = useState({
-    email: "",
-    password: "",
-});
+    const [loginData, setLoginData] = useState({
+        email: "",
+        password: "",
+    });
+const navigate = useNavigate();
 const queryClient = useQueryClient();
 const{mutate:loginMutation , isPending, error} = useMutation({
     mutationFn: login,
-    onSuccess: () => queryClient.invalidate({ queryKey: ["authUser"]}),
+    onSuccess: async () => {await queryClient.invalidateQueries({queryKey: ["authUser"],});
+},
 });
 const handleLogin = (e) =>{
     e.preventDefault();
     loginMutation(loginData);
+    navigate("/");
 }
 
     return (
@@ -94,7 +98,7 @@ const handleLogin = (e) =>{
                       {isPending ? 
                       (
                         <>
-                        <span className="loading loading-spinner loding-xs"></span>
+                        <span className="loading loading-spinner lodaing-xs"></span>
                         hold tight...
                         </>
                       )

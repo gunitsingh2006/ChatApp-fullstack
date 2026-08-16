@@ -3,7 +3,8 @@ import { Earth } from "lucide-react";
 import { Link } from "react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { signup } from "../lib/api";
-
+import { useNavigate } from "react-router";
+import useSignUp from "../hooks/useSignup";
 function SignupPage() {
   const [signupData, setSignupData] = useState({
     fullName: "",
@@ -12,18 +13,21 @@ function SignupPage() {
   });
 
   // using tanstack react query for submit button
-  const queryClient = useQueryClient();
-
-  const {mutate:signupMutation, isPending, error} = useMutation({
-    mutationFn : signup,  // signup function inside api.js
-    // the page will get reloaded
-    onSuccess:()=>  queryClient.invalidateQueries({queryKey: ["authUser"]}),
+  // const queryClient = useQueryClient();
+  // const navigate = useNavigate();
+  // const {mutate:signupMutation, isPending, error} = useMutation({
+  //   mutationFn : signup,  // signup function inside api.js
+  //   // the page will get reloaded
+  //   onSuccess:()=>  queryClient.invalidateQueries({queryKey: ["authUser"]}),
     
-  });
-
+  // });
+  
+  // This is how we did it using our custom hook - optimized version
+  const { isPending, error, signupMutation } = useSignUp();
   const handleSignup = (e) => {
     e.preventDefault();
     signupMutation(signupData)
+    navigate("/onboarding")
   };
 
 
