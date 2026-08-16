@@ -23,7 +23,7 @@ function App() {
   if (isLoading) return <PageLoader />;
 
   return (
-    <div className=" h-screen " data-theme="night">
+    <div className=" h-screen " data-theme="business">
       {/* <h1>Welcome to ChatApp</h1>
       <button className="btn glass">Glass button</button> */}
       {/* <button onClick={()=> toast.success("Bhechooooo")}>Create the toast</button> */}
@@ -32,7 +32,7 @@ function App() {
         <Route
           path="/"
           element={
-            isAuthenticated && !isOnboarded ? (
+            isAuthenticated && isOnboarded ? (
               <Layout showSidebar={true}>
                 <HomePage />
               </Layout>
@@ -44,19 +44,19 @@ function App() {
         <Route
           path="/signup"
           element={
-            !isAuthenticated ? <SignupPage /> : <Navigate to={!isOnboarded ? "/" : "/onboarding"} />
+            !isAuthenticated ? <SignupPage /> : <Navigate to={isOnboarded ? "/" : "/onboarding"} />
           }
         />
         <Route
           path="/login"
           element={
-            !isAuthenticated ? <LoginPage /> : <Navigate to={!isOnboarded ? "/" : "/onboarding"} />
+            !isAuthenticated ? <LoginPage /> : <Navigate to={isOnboarded ? "/" : "/onboarding"} />
           }
         />
         <Route
           path="/notifications"
           element={
-            isAuthenticated && !isOnboarded ? (
+            isAuthenticated && isOnboarded ? (
               <Layout showSidebar={true}>
                 <NotificationPage />
               </Layout>
@@ -68,7 +68,7 @@ function App() {
         <Route
           path="/call/:id"
           element={
-            isAuthenticated && !isOnboarded ? (
+            isAuthenticated && isOnboarded ? (
               <CallPage />
             ) : (
               <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
@@ -79,7 +79,7 @@ function App() {
         <Route
           path="/chat/:id"
           element={
-            isAuthenticated && !isOnboarded ? (
+            isAuthenticated && isOnboarded ? (
               <Layout showSidebar={false}>
                 <ChatPage />
               </Layout>
@@ -110,7 +110,7 @@ function App() {
   element={
     !isAuthenticated ? (
       <Navigate to="/login" replace />
-    ) : !isOnboarded ? (
+    ) : isOnboarded ? (
       <Navigate to="/home" replace />
     ) : (
       <OnboardingPage />
