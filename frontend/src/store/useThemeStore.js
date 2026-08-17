@@ -1,6 +1,12 @@
 import { create } from "zustand"
 
 export const useThemeStore = create((set)=>({
-    theme:"business",
-    setTheme: (theme) => set({theme}),
+    theme: localStorage.getItem( "gchatApp-theme") || "business",
+
+    setTheme: (theme) => {
+        localStorage.setItem("gchatApp-theme" , theme);
+        set({theme})
+    }
 }));
+
+// storing for any kind of refress
