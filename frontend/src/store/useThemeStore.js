@@ -1,12 +1,23 @@
-import { create } from "zustand"
+// import { create } from "zustand"
 
-export const useThemeStore = create((set)=>({
-    theme: localStorage.getItem( "gchatApp-theme") || "business",
+// export const useThemeStore = create((set)=>({
+//     theme: localStorage.getItem( "gchatApp-theme") || "business",
 
-    setTheme: (theme) => {
-        localStorage.setItem("gchatApp-theme" , theme);
-        set({theme})
-    }
-}));
+//     setTheme: (theme) => {
+//         localStorage.setItem("gchatApp-theme" , theme);
+//         set({theme})
+//     }
+// }));
 
 // storing for any kind of refress
+
+
+import { create } from "zustand";
+
+export const useThemeStore = create((set) => ({
+  theme: localStorage.getItem("streamify-theme") || "coffee",
+  setTheme: (theme) => {
+    localStorage.setItem("streamify-theme", theme);
+    set({ theme });
+  },
+}));
