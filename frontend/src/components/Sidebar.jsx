@@ -61,7 +61,7 @@ const SideBar = () => {
       <div className="p-4 border-t border-base-300 mt-auto">
         <Link
         // TODO:
-        to="/useprofile"
+        to="/userprofile"
         className="flex items-center gap-3">
           <div className="avatar">
             <div className="w-10 rounded-full">

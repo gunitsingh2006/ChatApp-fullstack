@@ -117,7 +117,7 @@ export const THEMES = [
   },
   {
     name: "business",
-    label: "Business",
+    label: "Business (default)",
     colors: ["#f5f5f5", "#1e40af", "#3b82f6", "#f97316"],
   },
   {
