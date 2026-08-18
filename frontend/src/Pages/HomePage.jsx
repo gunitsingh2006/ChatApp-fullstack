@@ -13,6 +13,7 @@ import { CheckCircleIcon, MapPinIcon, UserPlusIcon, UsersIcon } from "lucide-rea
 import FriendCard, { getLanguageFlag } from "../components/FriendCard.jsx";
 import NoFriendsFound from "../components/NoFriendsFound.jsx";
 
+import { capitialize } from "../lib/utils.js";
 
 const HomePage = () => {
   const queryClient = useQueryClient();
@@ -112,11 +113,11 @@ const HomePage = () => {
                     <div className=" p-4 space-y-4">
                       <div className="flex  items-center gap-3">
                         <div className="avatar size-16 rounded-full">
-                          <img src={user.pfp} alt={user.fullName}  className="size-16 rounded-full"/>
+                          <img src={user.pfp} alt={capitialize(user.fullName)}  className="size-16 rounded-full"/>
                         </div>
 
                         <div>
-                          <h3 className="font-semibold text-lg">{user.fullName}</h3>
+                          <h3 className="font-semibold text-lg">{capitialize(user.fullName)}</h3>
                           {user.location && (
                             <div className="flex items-center text-xs opacity-70 mt-1">
                               <MapPinIcon className="size-3 mr-1" />
@@ -176,4 +177,3 @@ const HomePage = () => {
 export default HomePage;
 
 
-const capitialize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
