@@ -48,10 +48,10 @@ const [showLogoutModal, setShowLogoutModal] = useState(false);
           {/* TODO */}
           <ThemeSelector />
 
-          <div className="avatar">
-            <div className="w-9 rounded-full">
-              <img src={authUser?.pfp} alt="User Avatar" rel="noreferrer" />
-            </div>
+          <div className="avatar" >
+            <Link to={"/userprofile"} >
+              <img src={authUser?.pfp} alt="User Avatar" className="w-9 rounded-full" rel="noreferrer" />
+            </Link>
           </div>
 
 
