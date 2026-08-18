@@ -24,7 +24,7 @@ app.use(cors({
     credentials: true,  // allow frontend to send cookies to backend
 }))
 app.use("/api/auth", authRoutes);
-app.use("/api/user", userRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/chat", chatRoutes);
 
 // THE ROUTE OR PATH IS SAME I.E API/AUTH

@@ -146,5 +146,5 @@ export async function onboard(req,res){
         console.log("Error in onboard controller in auth", error);
         res.status(500).json({messgae:"Internal Server Error"});
     }
-    
+
 }

@@ -22,7 +22,7 @@ const [showLogoutModal, setShowLogoutModal] = useState(false);
  
 
   return (
-    <nav className="bg-base-200 border-b border-base-300 sticky top-0 z-30 h-16 flex items-center">
+    <nav className="bg-base-200 border-b border-base-300 sticky top-0 z-30 h-14 flex-shrink-0 flex items-center">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex gap-5 items-center justify-center w-full">
           {/* LOGO ONLY IF WE ARE ON CHAT PAGE */}

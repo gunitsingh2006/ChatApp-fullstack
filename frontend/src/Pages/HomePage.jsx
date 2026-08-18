@@ -10,8 +10,8 @@ import {
 import { Link } from "react-router";
 import { CheckCircleIcon, MapPinIcon, UserPlusIcon, UsersIcon } from "lucide-react";
 
-import FriendCard, { getLanguageFlag } from "../components/FriendCard";
-import NoFriendsFound from "../components/NoFriendsFound";
+import FriendCard, { getLanguageFlag } from "../components/FriendCard.jsx";
+import NoFriendsFound from "../components/NoFriendsFound.jsx";
 
 
 const HomePage = () => {
@@ -50,9 +50,10 @@ const HomePage = () => {
     }
   }, [outgoingFriendReqs]);
 
-  return <div className="p-4 sm:p-6 lg:p-8">
-    < div className="container mx-auto space-y-10">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+  return <div className="max-h-screen">
+   <div className=" p-4 sm:p-6 lg:p-8">
+    < div className=" container mx-auto space-y-10">
+      <div className=" flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Your Friends</h2>
           <Link to="/notifications" className="btn btn-outline btn-sm">
             <UsersIcon className="mr-2 size-4" />
@@ -61,7 +62,7 @@ const HomePage = () => {
         </div>
 
          {loadingFriends ? (
-          <div className="flex justify-center py-12">
+          <div className=" flex justify-center py-12">
             <span className="loading loading-spinner loading-lg" />
           </div>
         ) : friends.length === 0 ? (
@@ -74,8 +75,8 @@ const HomePage = () => {
           </div>
         )}
 
-        <section>
-          <div className="mb-6 sm:mb-8">
+        <section className="mb-15">
+          <div className=" mb-6 sm:mb-8">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
                 <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Meet New Learners</h2>
@@ -127,11 +128,11 @@ const HomePage = () => {
 
                       {/* Languages with flags */}
                       <div className="flex flex-wrap gap-1.5">
-                        <span className="badge badge-secondary">
+                        <span className="badge rounded-2xl badge-neutral">
                           {getLanguageFlag(user.nativeLanguage)}
                           Native: {capitialize(user.nativeLanguage)}
                         </span>
-                        <span className="badge badge-outline">
+                        <span className="badge rounded-2xl badge-success">
                           {getLanguageFlag(user.learningLanguage)}
                           Learning: {capitialize(user.learningLanguage)}
                         </span>
@@ -141,7 +142,7 @@ const HomePage = () => {
 
                       {/* Action button */}
                       <button
-                        className={`btn w-full mt-2 ${
+                        className={`btn  rounded-4xl w-full mt-2 ${
                           hasRequestBeenSent ? "btn-disabled" : "btn-primary"
                         } `}
                         onClick={() => sendRequestMutation(user._id)}
@@ -166,6 +167,7 @@ const HomePage = () => {
             </div>
           )}
         </section>
+    </div>
     </div>
     </div>
 

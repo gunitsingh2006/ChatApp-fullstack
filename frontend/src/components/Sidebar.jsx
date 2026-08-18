@@ -9,7 +9,7 @@ const SideBar = () => {
   console.log(currentPath);
 
   return (
-    <aside className="w-64 bg-base-200 border-r border-base-300 hidden lg:flex flex-col h-screen sticky top-0">
+    <aside className="w-64 h-screen flex-shrink-0 bg-base-200 border-r border-base-300 hidden lg:flex flex-col sticky top-0">
       <div className="p-5 border-base-300 border-b flex justify-center ">
         <Link
           to="/home"
