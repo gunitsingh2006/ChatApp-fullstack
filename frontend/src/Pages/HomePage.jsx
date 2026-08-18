@@ -40,11 +40,11 @@ const HomePage = () => {
       queryClient.invalidateQueries({ queryFn: ["outgoingFriendReqs"] }),
   });
 
-  useEffect(() => {
+ useEffect(() => {
     const outgoingIds = new Set();
     if (outgoingFriendReqs && outgoingFriendReqs.length > 0) {
       outgoingFriendReqs.forEach((req) => {
-        outgoingIds.add(req.id);
+        outgoingIds.add(req.recipient._id);
       });
       setOutgoingRequestsIds(outgoingIds);
     }
@@ -55,7 +55,7 @@ const HomePage = () => {
     < div className=" container mx-auto space-y-10">
       <div className=" flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Your Friends</h2>
-          <Link to="/notifications" className="btn btn-outline btn-sm">
+          <Link to="/notifications" className="btn rounded-full btn-outline btn-sm">
             <UsersIcon className="mr-2 size-4" />
             Friend Requests
           </Link>
@@ -107,12 +107,12 @@ const HomePage = () => {
                 return (
                   <div
                     key={user._id}
-                    className="card bg-base-200 hover:shadow-lg transition-all duration-300"
+                    className="card bg-base-300 rounded-3xl hover:shadow-lg transition-all duration-300"
                   >
-                    <div className="card-body p-5 space-y-4">
-                      <div className="flex items-center gap-3">
+                    <div className=" p-4 space-y-4">
+                      <div className="flex  items-center gap-3">
                         <div className="avatar size-16 rounded-full">
-                          <img src={user.pfp} alt={user.fullName} />
+                          <img src={user.pfp} alt={user.fullName}  className="size-16 rounded-full"/>
                         </div>
 
                         <div>
