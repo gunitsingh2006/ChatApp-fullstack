@@ -1,30 +1,33 @@
 import { Link } from "react-router";
 import { LANGUAGE_TO_FLAG } from "../constants";
+import { capitialize } from "../lib/utils";
 
 const FriendCard = ({ friend }) => {
   return (
-    <div className="card bg-base-200 hover:shadow-md transition-shadow">
-      <div className="card-body p-4">
+    <div className="card bg-base-300 hover:shadow-md transition-shadow rounded-2xl">
+      <div className="card-body p-5">
         {/* USER INFO */}
         <div className="flex items-center gap-3 mb-3">
-          <div className="avatar size-12">
-            <img src={friend.profilePic} alt={friend.fullName} />
+          <div className="avatar size-12 ">
+            <img src={friend.pfp} className="rounded-full" alt={friend.fullName} />
           </div>
-          <h3 className="font-semibold truncate">{friend.fullName}</h3>
+          <h3 className="font-semibold truncate">{capitialize(friend.fullName)}</h3>
         </div>
 
         <div className="flex flex-wrap  gap-1.5 mb-3">
-          <button className="btn btn-circle text-xs">
+          <button className="badge badge-secondary badge-sm rounded-2xl">
             {getLanguageFlag(friend.nativeLanguage)}
             Native: {friend.nativeLanguage}
           </button>
-          <span className="badge badge-outline text-xs">
+          <span className="badge badge-outline badge-sm rounded-2xl">
             {getLanguageFlag(friend.learningLanguage)}
             Learning: {friend.learningLanguage}
           </span>
+
+         
         </div>
 
-        <Link to={`/chat/${friend._id}`} className="btn btn-outline w-full">
+        <Link to={`/chat/${friend._id}`} className="btn btn-circle hover:border-white w-full">
           Message
         </Link>
       </div>
