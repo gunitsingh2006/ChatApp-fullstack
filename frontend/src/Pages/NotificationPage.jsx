@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import NoNotificationFound from "../components/NoNotificationFound";
 import { capitialize } from "../lib/utils";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 function NotificationPage() {
   const queryClient = useQueryClient();

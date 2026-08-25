@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { login } from "../lib/api";
-import { Link,  } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 import { Earth } from "lucide-react";
-import { useNavigate } from "react-router";
+
 
 const LoginPage=()=> {
     const [loginData, setLoginData] = useState({

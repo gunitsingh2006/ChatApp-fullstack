@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Earth } from "lucide-react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { signup } from "../lib/api";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import useSignUp from "../hooks/useSignup";
 function SignupPage() {
   const [signupData, setSignupData] = useState({

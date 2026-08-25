@@ -10,7 +10,7 @@ import {
   ShuffleIcon,
 } from "lucide-react";
 import { LANGUAGES } from "../constants";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const OnboardingPage = () => {
   const { authUser } = useAuthUser();

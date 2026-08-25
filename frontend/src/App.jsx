@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router";
+import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 import CallPage from "./Pages/CallPage";
 import ChatPage from "./Pages/ChatPage";

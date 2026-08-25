@@ -7,7 +7,7 @@ import {
   sendFriendRequest,
 } from "../lib/api";
 
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { CheckCircleIcon, MapPinIcon, UserPlusIcon, UsersIcon } from "lucide-react";
 
 import FriendCard, { getLanguageFlag } from "../components/FriendCard.jsx";
