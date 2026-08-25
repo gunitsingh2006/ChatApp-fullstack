@@ -1,6 +1,7 @@
 import dns from 'dns';
 dns.setServers(['8.8.8.8', '8.8.4.4']);
 
+
 import express from "express";
 import dotenv from "dotenv"
 dotenv.config()
@@ -10,6 +11,10 @@ import authRoutes from "./src/routes/auth.routess.js"
 import userRoutes from "./src/routes/user.routess.js"
 import { connectDB } from "./src/lib/db.js";
 import chatRoutes from "./src/routes/chat.routess.js"
+
+import path from "path";
+//path
+const __dirname = path.resolve();
 
 const app = express();
 const PORT = process.env.PORT 
@@ -26,6 +31,15 @@ app.use(cors({
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/chat", chatRoutes);
+
+// AFTER the roots - if you are in production 
+if(process.env.NODE_ENV === "production"){
+    app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+    app.get("*" , (req,res)=>{
+        res.sendFile(path.join(__dirname, "/frontend" , "dist" , "index.html"))
+    })
+}
 
 // THE ROUTE OR PATH IS SAME I.E API/AUTH
 
