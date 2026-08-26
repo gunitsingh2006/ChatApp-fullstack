@@ -48,18 +48,18 @@ const OnboardingPage = () => {
   };
 
   // for avatar generater
- const handleRandomAvatar = () => {
-  const idx = Math.floor(Math.random() * 500) + 1;
+  const handleRandomAvatar = () => {
+    const idx = Math.floor(Math.random() * 500) + 1;
 
-  const randomAvatar = `https://testingbot.com/free-online-tools/random-avatar/${idx}.png`;
+    const randomAvatar = `https://testingbot.com/free-online-tools/random-avatar/${idx}.png`;
 
-  setFormState({
-    ...formState,
-    pfp: randomAvatar,
-  });
+    setFormState({
+      ...formState,
+      pfp: randomAvatar,
+    });
 
-  toast.success("Random profile picture generated!");
-};
+    toast.success("Random profile picture generated!");
+  };
 
   return (
     <div
@@ -92,10 +92,10 @@ const OnboardingPage = () => {
               {/* GENERATE RANDOM AVATAR BUTTON */}
               <div className="flex items-center gap-2">
                 <button
-  type="button"
-  onClick={handleRandomAvatar}
-  className="btn btn-neutral"
->
+                  type="button"
+                  onClick={handleRandomAvatar}
+                  className="btn btn-neutral"
+                >
                   <ShuffleIcon className="size-4 mr-2" />
                   Regenerate Avatar
                 </button>

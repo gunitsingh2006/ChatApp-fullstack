@@ -2,6 +2,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 import CallPage from "./Pages/CallPage";
 import ChatPage from "./Pages/ChatPage";
+import UserProfilePage from "./Pages/UserProfilePage.jsx";
+import FriendsPage from "./Pages/FriendsPage.jsx";
 import NotificationPage from "./Pages/NotificationPage";
 import LoginPage from "./Pages/LoginPage";
 import OnboardingPage from "./Pages/OnboardingPage";
@@ -63,6 +65,18 @@ function App() {
           }
         />
         <Route
+          path="/userprofile"
+          element={
+            isAuthenticated && isOnboarded ? (
+              
+                <UserProfilePage />
+              
+            ) : (
+              <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
+            )
+          }
+        />
+        <Route
           path="/notifications"
           element={
             isAuthenticated && isOnboarded ? (
@@ -91,6 +105,18 @@ function App() {
             isAuthenticated && isOnboarded ? (
               <Layout showSidebar={false}>
                 <ChatPage />
+              </Layout>
+            ) : (
+              <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
+            )
+          }
+        />
+         <Route
+          path="/friends"
+          element={
+            isAuthenticated && isOnboarded ? (
+              <Layout showSidebar={true}>
+                <FriendsPage/>
               </Layout>
             ) : (
               <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />

@@ -6,7 +6,6 @@ import { logout } from "../lib/api";
 import { BellIcon, LogOutIcon, ShipWheelIcon } from "lucide-react";
 import useLogout from "../hooks/useLogout";
 import ThemeSelector from "./ThemeSelector";
- 
 
 const Navbar = () => {
   const { authUser } = useAuthUser();
@@ -18,8 +17,7 @@ const Navbar = () => {
   //   onSuccess:()=> queryClient.invalidateQueries({queryKey:["authUser"]})
   // })
   const { logoutMutation } = useLogout();
-const [showLogoutModal, setShowLogoutModal] = useState(false);
- 
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   return (
     <nav className="bg-base-200 border-b border-base-300 sticky top-0 z-30 h-14 flex-shrink-0 flex items-center">
@@ -45,56 +43,56 @@ const [showLogoutModal, setShowLogoutModal] = useState(false);
             </Link>
           </div>
 
-          {/* TODO */}
           <ThemeSelector />
 
-          <div className="avatar" >
-            <Link to={"/userprofile"} >
-              <img src={authUser?.pfp} alt="User Avatar" className="w-9 rounded-full" rel="noreferrer" />
+          <div className="avatar">
+            <Link to={"/userprofile"}>
+              <img
+                src={authUser?.pfp}
+                alt="User Avatar"
+                className="w-9 rounded-full"
+                rel="noreferrer"
+              />
             </Link>
           </div>
 
+          {showLogoutModal && (
+            <div className="modal modal-open">
+              <div className="modal-box">
+                <h3 className="font-bold text-lg">Confirm Logout</h3>
 
-{showLogoutModal && (
-  <div className="modal modal-open">
-    <div className="modal-box">
-      <h3 className="font-bold text-lg">Confirm Logout</h3>
+                <p className="py-4">Are you sure you want to logout?</p>
 
-      <p className="py-4">
-        Are you sure you want to logout?
-      </p>
+                <div className="modal-action">
+                  <button
+                    className="btn"
+                    onClick={() => setShowLogoutModal(false)}
+                  >
+                    Cancel
+                  </button>
 
-      <div className="modal-action">
-        <button
-          className="btn"
-          onClick={() => setShowLogoutModal(false)}
-        >
-          Cancel
-        </button>
-
-        <button
-          className="btn btn-error"
-          onClick={() => {
-            setShowLogoutModal(false);
-            logoutMutation();
-          }}
-        >
-          Logout
-        </button>
-      </div>
-    </div>
-  </div>)}
-
-          
+                  <button
+                    className="btn btn-error"
+                    onClick={() => {
+                      setShowLogoutModal(false);
+                      logoutMutation();
+                    }}
+                  >
+                    Logout
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Logout button */}
           <button
-  className="btn btn-ghost flex items-center justify-center gap-1"
-  onClick={()=>setShowLogoutModal(true)}
->
-  <LogOutIcon className="h-6 w-6 text-base-content opacity-70" />
-  <p>Logout</p>
-</button>
+            className="btn btn-ghost flex items-center justify-center gap-1"
+            onClick={() => setShowLogoutModal(true)}
+          >
+            <LogOutIcon className="h-6 w-6 text-base-content opacity-70" />
+            <p>Logout</p>
+          </button>
         </div>
       </div>
     </nav>

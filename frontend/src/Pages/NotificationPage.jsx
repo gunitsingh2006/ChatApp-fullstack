@@ -133,10 +133,10 @@ function NotificationPage() {
                               Recently
                             </p>
                           </div>
-                          TODO:
-                          <Link className="badge badge-success rounded-2xl" to>
+                          
+                          <Link className="badge badge-success rounded-2xl" >
                             <MessageSquareIcon className="h-3 w-3 mr-1" />
-                            New Friend
+                            Chat now
                           </Link>
                         </div>
                       </div>

@@ -35,6 +35,7 @@ const SideBar = () => {
         </Link>
 
         <Link
+        //TODO:
           to="/friends"
           className={`btn btn-circle justify-start w-full gap-3 px-3 normal-case ${
             currentPath === "/friends" ? "btn-active" : ""

@@ -1,5 +1,5 @@
-import Navbar from "./Navbar"
-import SideBar from "./SideBar"
+import Navbar from "./Navbar.jsx"
+import SideBar from "./Sidebar.jsx"
 
 const Layout = ({children, showSidebar=false}) => {
   return (
@@ -8,7 +8,7 @@ const Layout = ({children, showSidebar=false}) => {
             {showSidebar && <SideBar/>}
 
             <div className="flex-1 flex flex-col">
-                <Navbar/>
+                <Navbar />
                 <main className="flex-1 min-h-0 overflow-y-auto">
                     {children}
                 </main>
