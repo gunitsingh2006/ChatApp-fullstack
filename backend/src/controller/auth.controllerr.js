@@ -148,3 +148,85 @@ export async function onboard(req,res){
     }
 
 }
+export async function editprofile(req, res) {
+    try {
+        const userId = req.user._id;
+
+        const {
+            fullName,
+            bio,
+            nativeLanguage,
+            learningLanguage,
+            location
+        } = req.body;
+
+        // Build only the fields that were provided
+        const updateData = {};
+
+        if (fullName !== undefined) {
+            updateData.fullName = fullName;
+        }
+
+        if (bio !== undefined) {
+            updateData.bio = bio;
+        }
+
+        if (nativeLanguage !== undefined) {
+            updateData.nativeLanguage = nativeLanguage;
+        }
+
+        if (learningLanguage !== undefined) {
+            updateData.learningLanguage = learningLanguage;
+        }
+
+        if (location !== undefined) {
+            updateData.location = location;
+        }
+
+        const updateUser = await User.findByIdAndUpdate(
+            userId,
+            updateData,
+            {
+                new: true,
+                runValidators: true
+            }
+        );
+
+        if (!updateUser) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        // Update user in Stream
+        try {
+            await upsertStreamUser({
+                id: updateUser._id.toString(),
+                name: updateUser.fullName,
+                image: updateUser.pfp || "",
+            });
+
+            console.log(
+                `Stream user updated for ${updateUser.fullName}`
+            );
+
+        } catch (streamError) {
+            console.log(
+                "Error updating Stream user:",
+                streamError
+            );
+        }
+
+        return res.status(200).json({
+            success: true,
+            user: updateUser
+        });
+
+    } catch (error) {
+        console.log("Error in edit profile controller:", error);
+
+        return res.status(500).json({
+            message: "Internal Server Error"
+        });
+    }
+}

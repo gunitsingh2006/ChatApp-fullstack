@@ -1,11 +1,15 @@
 import { useState } from "react";
-import { ArrowLeft, Camera, Mail, MapPin, User, LogOut } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { ArrowLeft, Camera, Mail, MapPin, User, LogOut, Calendar } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import useAuthUser from "../hooks/useAuthUser";
+import useLogout from "../hooks/useLogout";
+
 
 const ProfilePage = () => {
   const navigate = useNavigate();
-    const {authUser} = useAuthUser();
+  const {authUser} = useAuthUser();
+  const { logoutMutation } = useLogout();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [user, setUser] = useState({
     fullName: authUser.fullName,
     // username: "alexmorgan",
@@ -31,12 +35,13 @@ const ProfilePage = () => {
   return (
     
     
-    <div className="min-h-screen bg-base-200 flex items-center justify-center p-">
-      <h1 className="text-5xl">TODO</h1>
-      <div className="w-full max-w-2xl bg-base-100 rounded-2xl shadow-lg overflow-hidden">
+    <div className="min-h-screen bg-base-200 flex items-center justify-center p-4">
+      {/* TODO: */}
+      
+      <div className="w-full max-w-4xl bg-base-100 rounded-2xl shadow-lg overflow-hidden">
 
         {/* Header */}
-        <div className="flex items-center gap-3 px-5 py-4 border-b border-base-300">
+        <div className="flex items-center gap-3 px-2 py-1 border-b border-base-300">
           <button
             onClick={() => navigate(-1)}
             className="btn btn-ghost btn-circle"
@@ -44,16 +49,18 @@ const ProfilePage = () => {
             <ArrowLeft size={20} />
           </button>
 
-          <h1 className="text-xl font-semibold">Profile</h1>
+          <h1 className="text-xl font-semibold">Your Profile</h1>
         </div>
 
+
         {/* Profile */}
-        <div className="p-6">
+        <div className="p-6 ">
+
 
           {/* Avatar */}
           <div className="flex flex-col items-center">
             <div className="relative">
-              <div className="w-32 h-32 rounded-full bg-primary flex items-center justify-center overflow-hidden">
+              <div className="size-26 rounded-full bg-primary flex items-center justify-center overflow-hidden">
                 {user.pfp ? (
                   <img
                     src={user.pfp}
@@ -82,14 +89,15 @@ const ProfilePage = () => {
               @{user.username}
             </p> */}
 
-            <div className="flex items-center gap-2 mt-2">
+            <div className="flex items-center gap-2 mt-2 mb-3">
               <span className="w-2 h-2 rounded-full bg-success"></span>
-              <span className="text-sm text-success">Online</span>
+              <span className="text-sm text-success ">Online</span>
             </div>
           </div>
 
+
           {/* Info */}
-          <div className="mt-8 space-y-5">
+          <div className=" bg-base-200 rounded-3xl p-5 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5 mb-2">
 
             {/* Full Name */}
             <div>
@@ -150,46 +158,14 @@ const ProfilePage = () => {
             {/* TODO:DOB */}
             <div>
               <label className="text-sm text-base-content/60">
-                Location
+                DOB
               </label>
-
-              {isEditing ? (
-                <input
-                  type="text"
-                  name="location"
-                  value={user.location}
-                  onChange={handleChange}
-                  className="input input-bordered w-full mt-1"
-                />
-              ) : (
                 <div className="flex items-center gap-3 mt-2">
-                  <MapPin size={18} />
-                  <span>{user.location}</span>
+                  <Calendar size={18} />
+                  <span>BDAYYYY</span>
                 </div>
-              )}
             </div>
 
-             {/* TODO:Profile created */}
-            <div>
-              <label className="text-sm text-base-content/60">
-                Location
-              </label>
-
-              {isEditing ? (
-                <input
-                  type="text"
-                  name="location"
-                  value={user.location}
-                  onChange={handleChange}
-                  className="input input-bordered w-full mt-1"
-                />
-              ) : (
-                <div className="flex items-center gap-3 mt-2">
-                  <MapPin size={18} />
-                  <span>{user.location}</span>
-                </div>
-              )}
-            </div>
 
             {/* Bio */}
             <div>
@@ -213,8 +189,13 @@ const ProfilePage = () => {
             </div>
           </div>
 
+          {/* TODO:Profile created */}
+          <div className="opacity-50 flex items-center justify-center ">
+              Profile Created On - 
+          </div>
+
           {/* Buttons */}
-          <div className="mt-8 flex gap-3">
+          <Link to={"/edit-profile"} className="mt-4 flex gap-3">
             {isEditing ? (
               <>
                 <button
@@ -239,13 +220,47 @@ const ProfilePage = () => {
                 Edit Profile
               </button>
             )}
-          </div>
+          </Link>
+
+
+
+          {showLogoutModal && (
+            <div className="modal modal-open">
+              <div className="modal-box">
+                <h3 className="font-bold text-lg">Confirm Logout</h3>
+
+                <p className="py-4">Are you sure you want to logout?</p>
+
+                <div className="modal-action">
+                  <button
+                    className="btn"
+                    onClick={() => setShowLogoutModal(false)}
+                  >
+                    Cancel
+                  </button>
+
+                  <button
+                    className="btn btn-error"
+                    onClick={() => {
+                      setShowLogoutModal(false);
+                      logoutMutation();
+                    }}
+                  >
+                    Logout
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* TODO:Logout */}
-          <button className="btn btn-error btn-outline w-full mt-4 gap-2">
+         <Link >
+             <button className="btn btn-error btn-outline w-full mt-4 gap-2"
+             onClick={() => setShowLogoutModal(true)}>
             <LogOut size={18} />
             Logout
           </button>
+         </Link>
 
         </div>
       </div>

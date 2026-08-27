@@ -1,5 +1,5 @@
 import express from 'express'
-import { login, logout, signup} from "../controller/auth.controllerr.js"
+import { editprofile, login, logout, signup} from "../controller/auth.controllerr.js"
 import { protectRoute,  } from '../middlewear/auth.middlewear.js';
 import { onboard } from '../controller/auth.controllerr.js';
 const router = express.Router();
@@ -15,6 +15,7 @@ router.post("/logout", logout);
 
 // the protected route is create to check this authentication before going to any other 
 router.post("/onboarding", protectRoute , onboard )
+router.post("/edit-profile", protectRoute , editprofile )
 
 // to check who is loggedIn or authenticated
 router.get("/me", protectRoute ,(req,res) =>{
