@@ -8,6 +8,7 @@ import NotificationPage from "./Pages/NotificationPage";
 import LoginPage from "./Pages/LoginPage";
 import OnboardingPage from "./Pages/OnboardingPage";
 import SignupPage from "./Pages/SignupPage";
+import Main from "./Pages/Main.jsx";
 import { Toaster } from "react-hot-toast";
 import PageLoader from "./components/PageLoader.jsx";
 import Layout from "./components/Layout.jsx";
@@ -30,8 +31,24 @@ function App() {
       {/* <h1>Welcome to ChatApp</h1>
       <button className="btn glass">Glass button</button> */}
       {/* <button onClick={()=> toast.success("Bhechooooo")}>Create the toast</button> */}
-
       <Routes>
+        {/* <Main/> */}
+    <Route
+  path="/"
+  element={
+    !isAuthenticated ? (
+      <Main />
+    ) : isOnboarded ? (
+      <Layout showSidebar={true}>
+        <HomePage />
+      </Layout>
+    ) : (
+      <Navigate to="/onboarding" replace />
+    )
+  }
+/>
+
+        
         <Route
           path="/"
           element={

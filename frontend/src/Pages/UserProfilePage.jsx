@@ -1,13 +1,20 @@
 import { useState } from "react";
-import { ArrowLeft, Camera, Mail, MapPin, User, LogOut, Calendar } from "lucide-react";
+import {
+  ArrowLeft,
+  Camera,
+  Mail,
+  MapPin,
+  User,
+  LogOut,
+  Calendar,
+} from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import useAuthUser from "../hooks/useAuthUser";
 import useLogout from "../hooks/useLogout";
 
-
 const ProfilePage = () => {
   const navigate = useNavigate();
-  const {authUser} = useAuthUser();
+  const { authUser } = useAuthUser();
   const { logoutMutation } = useLogout();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [user, setUser] = useState({
@@ -33,13 +40,10 @@ const ProfilePage = () => {
   };
 
   return (
-    
-    
     <div className="min-h-screen bg-base-200 flex items-center justify-center p-4">
       {/* TODO: */}
-      
-      <div className="w-full max-w-4xl bg-base-100 rounded-2xl shadow-lg overflow-hidden">
 
+      <div className="w-full max-w-4xl bg-base-100 rounded-2xl shadow-lg overflow-hidden">
         {/* Header */}
         <div className="flex items-center gap-3 px-2 py-1 border-b border-base-300">
           <button
@@ -52,11 +56,8 @@ const ProfilePage = () => {
           <h1 className="text-xl font-semibold">Your Profile</h1>
         </div>
 
-
         {/* Profile */}
         <div className="p-6 ">
-
-
           {/* Avatar */}
           <div className="flex flex-col items-center">
             <div className="relative">
@@ -81,9 +82,7 @@ const ProfilePage = () => {
               )}
             </div>
 
-            <h2 className="text-2xl font-bold mt-4">
-              {user.fullName}
-            </h2>
+            <h2 className="text-2xl font-bold mt-4">{user.fullName}</h2>
 
             {/* <p className="text-base-content/60">
               @{user.username}
@@ -95,15 +94,11 @@ const ProfilePage = () => {
             </div>
           </div>
 
-
           {/* Info */}
           <div className=" bg-base-200 rounded-3xl p-5 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5 mb-2">
-
             {/* Full Name */}
             <div>
-              <label className="text-sm text-base-content/60">
-                Full Name
-              </label>
+              <label className="text-sm text-base-content/60">Full Name</label>
 
               {isEditing ? (
                 <input
@@ -123,9 +118,7 @@ const ProfilePage = () => {
 
             {/* Email */}
             <div>
-              <label className="text-sm text-base-content/60">
-                Email
-              </label>
+              <label className="text-sm text-base-content/60">Email</label>
 
               <div className="flex items-center gap-3 mt-2">
                 <Mail size={18} />
@@ -135,9 +128,7 @@ const ProfilePage = () => {
 
             {/* Location */}
             <div>
-              <label className="text-sm text-base-content/60">
-                Location
-              </label>
+              <label className="text-sm text-base-content/60">Location</label>
 
               {isEditing ? (
                 <input
@@ -157,21 +148,16 @@ const ProfilePage = () => {
 
             {/* TODO:DOB */}
             <div>
-              <label className="text-sm text-base-content/60">
-                DOB
-              </label>
-                <div className="flex items-center gap-3 mt-2">
-                  <Calendar size={18} />
-                  <span>BDAYYYY</span>
-                </div>
+              <label className="text-sm text-base-content/60">DOB</label>
+              <div className="flex items-center gap-3 mt-2">
+                <Calendar size={18} />
+                <span>TODO : add in db then retrieve from there</span>
+              </div>
             </div>
-
 
             {/* Bio */}
             <div>
-              <label className="text-sm text-base-content/60">
-                Bio
-              </label>
+              <label className="text-sm text-base-content/60">Bio</label>
 
               {isEditing ? (
                 <textarea
@@ -182,26 +168,28 @@ const ProfilePage = () => {
                   className="textarea textarea-bordered w-full mt-1"
                 />
               ) : (
-                <p className="mt-2 text-base-content/80">
-                  {user.bio}
-                </p>
+                <p className="mt-2 text-base-content/80">{user.bio}</p>
               )}
             </div>
           </div>
 
-          {/* TODO:Profile created */}
-          <div className="opacity-50 flex items-center justify-center ">
-              Profile Created On - 
+          <div className="opacity-90 flex items-center justify-center">
+            <p className="text-sm text-gray-300">
+              🚀 Member since{" "}
+              {new Date(authUser?.createdAt).toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+              })}
+            </p>{" "}
           </div>
 
           {/* Buttons */}
-          <Link to={"/edit-profile"} className="mt-4 flex gap-3">
+          {/* to={"/edit-profile"}  */}
+          <Link className="mt-4 flex gap-3">
             {isEditing ? (
               <>
-                <button
-                  onClick={handleSave}
-                  className="btn btn-primary flex-1"
-                >
+                <button onClick={handleSave} className="btn btn-primary flex-1">
                   Save Changes
                 </button>
 
@@ -217,12 +205,10 @@ const ProfilePage = () => {
                 onClick={() => setIsEditing(true)}
                 className="btn btn-primary w-full"
               >
-                Edit Profile
+                Edit Profile TODOOOO
               </button>
             )}
           </Link>
-
-
 
           {showLogoutModal && (
             <div className="modal modal-open">
@@ -254,14 +240,15 @@ const ProfilePage = () => {
           )}
 
           {/* TODO:Logout */}
-         <Link >
-             <button className="btn btn-error btn-outline w-full mt-4 gap-2"
-             onClick={() => setShowLogoutModal(true)}>
-            <LogOut size={18} />
-            Logout
-          </button>
-         </Link>
-
+          <Link>
+            <button
+              className="btn btn-error btn-outline w-full mt-4 gap-2"
+              onClick={() => setShowLogoutModal(true)}
+            >
+              <LogOut size={18} />
+              Logout
+            </button>
+          </Link>
         </div>
       </div>
     </div>
