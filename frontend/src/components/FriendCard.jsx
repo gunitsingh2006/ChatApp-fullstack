@@ -4,36 +4,51 @@ import { capitialize } from "../lib/utils";
 
 const FriendCard = ({ friend }) => {
   return (
-    <div className="card bg-base-300 hover:shadow-md transition-shadow rounded-2xl">
-      <div className="card-body p-5">
+    <div className="card bg-base-300 rounded-2xl h-full hover:shadow-md transition-shadow">
+      <div className="card-body p-5 flex flex-col">
+
         {/* USER INFO */}
-        <div className="flex items-center gap-3 mb-3">
-          <div className="avatar size-12 ">
-            <img src={friend.pfp} className="rounded-full" alt={friend.fullName} />
+        <div className="flex items-center gap-3">
+          <div className="avatar">
+            <div className="w-12 rounded-full">
+              <img
+                src={friend.pfp}
+                alt={friend.fullName}
+              />
+            </div>
           </div>
-          <h3 className="font-semibold truncate">{capitialize(friend.fullName)}</h3>
+
+          <h3 className="font-semibold truncate">
+            {capitialize(friend.fullName)}
+          </h3>
         </div>
 
-        <div className="flex flex-wrap  gap-1.5 mb-3">
-          <button className="badge badge-secondary badge-sm rounded-2xl">
+        {/* LANGUAGES */}
+        <div className="flex flex-wrap gap-2 mt-4">
+          <span className="badge badge-secondary badge-sm rounded-full gap-1">
             {getLanguageFlag(friend.nativeLanguage)}
             Native: {friend.nativeLanguage}
-          </button>
-          <span className="badge badge-outline badge-sm rounded-2xl">
+          </span>
+
+          <span className="badge badge-outline badge-sm rounded-full gap-1">
             {getLanguageFlag(friend.learningLanguage)}
             Learning: {friend.learningLanguage}
           </span>
-
-         
         </div>
 
-        <Link to={`/chat/${friend._id}`} className="btn btn-circle hover:border-white w-full">
+        {/* CHAT BUTTON */}
+        <Link
+          to={`/chat/${friend._id}`}
+          className="btn btn-sm w-full bg-primary text-primary-content rounded-full mt-auto"
+        >
           Chat
         </Link>
+
       </div>
     </div>
   );
 };
+
 export default FriendCard;
 
 export function getLanguageFlag(language) {
@@ -51,5 +66,6 @@ export function getLanguageFlag(language) {
       />
     );
   }
+
   return null;
 }

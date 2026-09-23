@@ -22,7 +22,7 @@ function App() {
 
   const isAuthenticated = Boolean(authUser);
   const isOnboarded = authUser?.isOnboarded;
-  const {theme} = useThemeStore();
+  const { theme } = useThemeStore();
   // while loading
   if (isLoading) return <PageLoader />;
 
@@ -33,22 +33,21 @@ function App() {
       {/* <button onClick={()=> toast.success("Bhechooooo")}>Create the toast</button> */}
       <Routes>
         {/* <Main/> */}
-    <Route
-  path="/"
-  element={
-    !isAuthenticated ? (
-      <Main />
-    ) : isOnboarded ? (
-      <Layout showSidebar={true}>
-        <HomePage />
-      </Layout>
-    ) : (
-      <Navigate to="/onboarding" replace />
-    )
-  }
-/>
+        <Route
+          path="/"
+          element={
+            !isAuthenticated ? (
+              <Main />
+            ) : isOnboarded ? (
+              <Layout showSidebar={true}>
+                <HomePage />
+              </Layout>
+            ) : (
+              <Navigate to="/onboarding" replace />
+            )
+          }
+        />
 
-        
         <Route
           path="/"
           element={
@@ -85,9 +84,7 @@ function App() {
           path="/userprofile"
           element={
             isAuthenticated && isOnboarded ? (
-              
-                <UserProfilePage />
-              
+              <UserProfilePage />
             ) : (
               <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
             )
@@ -129,12 +126,12 @@ function App() {
             )
           }
         />
-         <Route
+        <Route
           path="/friends"
           element={
             isAuthenticated && isOnboarded ? (
               <Layout showSidebar={true}>
-                <FriendsPage/>
+                <FriendsPage />
               </Layout>
             ) : (
               <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />

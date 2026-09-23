@@ -12,6 +12,7 @@ import {
   Zap,
   Check,
   Wifi,
+  Palette,
 } from "lucide-react";
 
 export default function App() {
@@ -22,7 +23,7 @@ export default function App() {
     { from: "me", text: "Perfect, see you then" },
   ];
 
-  const [shown, setShown] = useState(0);
+  const [shown, setShown] = useState( 0);
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -77,6 +78,11 @@ export default function App() {
       title: "Works everywhere you do",
       body: "Start a chat on your phone, finish it on your laptop. Everything stays in sync.",
     },
+    {
+      icon: Palette,
+      title: "Customizable themes",
+      body: "Personalize your experience with a variety of 30+ themes and color schemes.",
+    },
   ];
 
   const footerColumns = [
@@ -106,7 +112,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-paper text-ink font-sans scroll-smooth overflow-hidden">
-
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
@@ -633,9 +638,7 @@ export default function App() {
       {/* NAV */}
 
       <header className="sticky top-0 z-50 nav-glass border-b border-line">
-
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
-
           <a
             href="#top"
             className="font-display text-xl font-semibold tracking-tight flex items-center gap-2"
@@ -643,12 +646,10 @@ export default function App() {
             <span className="w-7 h-7 rounded-lg bg-ember flex items-center justify-center">
               <MessageCircle size={15} />
             </span>
-
             G-ChatApp
           </a>
 
           <nav className="hidden md:flex items-center gap-8">
-
             {navLinks.map((link) => (
               <a
                 key={link.label}
@@ -658,7 +659,6 @@ export default function App() {
                 {link.label}
               </a>
             ))}
-
           </nav>
 
           <a
@@ -667,9 +667,7 @@ export default function App() {
           >
             Login
           </a>
-
         </div>
-
       </header>
 
       <div id="top" />
@@ -677,40 +675,27 @@ export default function App() {
       {/* HERO */}
 
       <section className="relative max-w-6xl mx-auto px-6 pt-20 pb-24 grid md:grid-cols-2 gap-16 items-center z-10">
-
         <div className="reveal">
-
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-line bg-white-card text-xs text-ink-soft mb-7">
-
             <span className="w-1.5 h-1.5 bg-ember rounded-full animate-pulse" />
-
             Private conversations. Better connections.
-
             <Sparkles size={12} className="text-ember" />
-
           </div>
 
           <h1 className="hero-title font-display text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight tracking-tight">
-
             Conversations
             <br />
-
             that keep their
             <br />
-
             thread.
-
           </h1>
 
           <p className="mt-7 text-lg text-ink-soft max-w-md leading-relaxed">
-
-            G-ChatApp keeps every chat, call and file in one place —
-            fast, private, and built for how people actually talk.
-
+            G-ChatApp keeps every chat, call and file in one place — fast,
+            private, and built for how people actually talk.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-4">
-
             <a
               href="/signup"
               className="cool-button bg-ember text-white font-medium px-7 py-3.5 rounded-full transition-all flex items-center gap-2"
@@ -724,17 +709,14 @@ export default function App() {
               className="text-sm font-medium text-ink flex items-center gap-2 group"
             >
               Explore features
-
               <ArrowUpRight
                 size={15}
                 className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
               />
             </a>
-
           </div>
 
           <div className="mt-8 flex items-center gap-5 text-xs text-ink-soft">
-
             <div className="flex items-center gap-2">
               <Check size={14} className="text-ember" />
               Free forever
@@ -749,9 +731,7 @@ export default function App() {
               <Check size={14} className="text-ember" />
               Private
             </div>
-
           </div>
-
         </div>
 
         {/* PHONE */}
@@ -762,80 +742,56 @@ export default function App() {
             transform: `translate(${mouse.x * 0.25}px, ${mouse.y * 0.25}px)`,
           }}
         >
-
           <div className="absolute w-72 h-72 rounded-full bg-ember opacity-10 blur-3xl" />
 
           <div className="relative">
-
             <div className="phone-glow" />
 
             <div
               className="relative bg-ink rounded-[2.3rem] p-3 phone-shadow phone-border"
               style={{ width: "310px" }}
             >
-
               {/* PHONE CAMERA */}
 
               <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-5 bg-black rounded-full z-10 flex items-center justify-end px-2">
-
                 <div className="w-2 h-2 bg-[#23639A] rounded-full animate-pulse" />
-
               </div>
 
               <div
                 className="bg-white-card rounded-[1.8rem] overflow-hidden flex flex-col"
                 style={{ height: "490px" }}
               >
-
                 {/* HEADER */}
 
                 <div className="px-5 pt-7 pb-4 border-b border-line flex items-center gap-3">
-
                   <div className="relative">
-
                     <div className="w-10 h-10 rounded-full bg-teal flex items-center justify-center text-paper text-sm font-semibold">
-
                       A
-
                     </div>
 
                     <span className="online-dot absolute bottom-0 right-0 w-3 h-3 bg-ember rounded-full border-2 border-[#202020]" />
-
                   </div>
 
                   <div className="flex-1">
-
-                    <p className="text-sm font-semibold leading-tight">
-                      Amara
-                    </p>
+                    <p className="text-sm font-semibold leading-tight">Amara</p>
 
                     <p className="text-xs text-ember leading-tight mt-1 flex items-center gap-1">
-
                       <Wifi size={10} />
-
                       online
-
                     </p>
-
                   </div>
 
-                  <Video
-                    size={18}
-                    className="text-ink-soft"
-                  />
-
+                  <Video size={18} className="text-ink-soft" />
                 </div>
 
                 {/* MESSAGES */}
 
                 <div className="flex-1 px-4 py-5 flex flex-col gap-2.5 overflow-hidden">
-
                   <div className="text-center text-[10px] text-ink-soft mb-2">
                     TODAY
                   </div>
 
                   {messages.slice(0, shown).map((m, i) => (
-
                     <div
                       key={i}
                       className={`bubble-in max-w-[82%] px-3.5 py-2.5 rounded-2xl text-sm ${
@@ -846,13 +802,10 @@ export default function App() {
                     >
                       {m.text}
                     </div>
-
                   ))}
 
                   {shown >= messages.length && (
-
                     <div className="bg-[#292929] border border-line rounded-2xl rounded-bl-sm px-3 py-2 flex items-center gap-1 w-fit">
-
                       <span
                         className="dot w-1.5 h-1.5 rounded-full bg-ink-soft"
                         style={{ animationDelay: "0s" }}
@@ -867,73 +820,42 @@ export default function App() {
                         className="dot w-1.5 h-1.5 rounded-full bg-ink-soft"
                         style={{ animationDelay: ".3s" }}
                       />
-
                     </div>
-
                   )}
-
                 </div>
 
                 {/* INPUT */}
 
                 <div className="px-4 py-4 border-t border-line">
-
                   <div className="bg-paper rounded-full h-10 flex items-center px-4 text-xs text-ink-soft">
-
                     Message Amara...
-
-                    <span className="ml-auto text-ember">
-                      →
-                    </span>
-
+                    <span className="ml-auto text-ember">→</span>
                   </div>
-
                 </div>
-
               </div>
-
             </div>
 
             {/* FLOATING STATUS */}
 
             <div className="absolute -right-12 top-20 bg-white-card border border-line rounded-xl px-3 py-2 shadow-xl hidden lg:flex items-center gap-2 animate-bounce">
+              <Zap size={14} className="text-ember" />
 
-              <Zap
-                size={14}
-                className="text-ember"
-              />
-
-              <span className="text-xs">
-                Connected
-              </span>
-
+              <span className="text-xs">Connected</span>
             </div>
 
             <div className="absolute -left-14 bottom-28 bg-white-card border border-line rounded-xl px-3 py-2 shadow-xl hidden lg:flex items-center gap-2">
+              <Lock size={14} className="text-ember" />
 
-              <Lock
-                size={14}
-                className="text-ember"
-              />
-
-              <span className="text-xs">
-                Encrypted
-              </span>
-
+              <span className="text-xs">Encrypted</span>
             </div>
-
           </div>
-
         </div>
-
       </section>
 
       {/* MARQUEE */}
 
       <div className="marquee relative z-10 py-4">
-
         <div className="marquee-track text-xs text-ink-soft">
-
           <span>PRIVATE BY DEFAULT</span>
           <span>✦</span>
           <span>REAL-TIME MESSAGING</span>
@@ -951,9 +873,7 @@ export default function App() {
           <span>✦</span>
           <span>SYNC EVERYWHERE</span>
           <span>✦</span>
-
         </div>
-
       </div>
 
       {/* FEATURES */}
@@ -962,52 +882,33 @@ export default function App() {
         id="features"
         className="relative max-w-6xl mx-auto px-6 py-24 z-10"
       >
-
         <div className="max-w-2xl reveal">
-
           <p className="text-ember text-sm font-semibold uppercase tracking-wider flex items-center gap-2">
-
             <span className="w-6 h-px bg-ember" />
-
             Features
-
           </p>
 
           <h2 className="font-display text-3xl md:text-5xl font-semibold mt-3">
-
             Built for how people
             <span className="text-ember"> actually talk.</span>
-
           </h2>
 
           <p className="text-ink-soft mt-5 max-w-xl leading-relaxed">
-
-            Everything you need to stay connected without the clutter.
-            G-ChatApp keeps conversations simple, organized and personal.
-
+            Everything you need to stay connected without the clutter. G-ChatApp
+            keeps conversations simple, organized and personal.
           </p>
-
         </div>
 
         <div className="mt-12 grid md:grid-cols-2 gap-6">
-
           {/* SECURITY */}
 
           <div
             id="security"
             className="security-card bg-teal rounded-3xl p-8 md:p-10 flex flex-col justify-between min-h-[360px] cool-card"
           >
-
             <div className="relative z-10">
-
               <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center">
-
-                <Lock
-                  className="text-paper"
-                  size={25}
-                  strokeWidth={1.5}
-                />
-
+                <Lock className="text-paper" size={25} strokeWidth={1.5} />
               </div>
 
               <h3 className="font-display text-3xl font-semibold text-paper mt-7">
@@ -1015,87 +916,52 @@ export default function App() {
               </h3>
 
               <p className="text-paper-soft mt-4 max-w-sm leading-relaxed">
-
-                Every message, call and file is encrypted automatically.
-                No setup. No complicated toggles.
-
+                Every message, call and file is encrypted automatically. No
+                setup. No complicated toggles.
               </p>
-
             </div>
 
             <div className="relative z-10 mt-10 border-t border-white/10 pt-5 flex items-center justify-between">
-
               <p className="text-paper-soft text-sm">
                 Your conversations stay yours.
               </p>
 
-              <ShieldCheck
-                size={20}
-                className="text-white/60"
-              />
-
+              <ShieldCheck size={20} className="text-white/60" />
             </div>
-
           </div>
 
           {/* SMALL FEATURES */}
 
           <div className="grid gap-6">
-
             {smallFeatures.map(({ icon: Icon, title, body }) => (
-
               <div
                 key={title}
                 className="cool-card bg-white-card border border-line rounded-2xl p-6 flex gap-5"
               >
-
                 <div className="icon-box shrink-0 w-11 h-11 rounded-xl bg-[#252525] flex items-center justify-center">
-
-                  <Icon
-                    className="text-ember"
-                    size={22}
-                    strokeWidth={1.5}
-                  />
-
+                  <Icon className="text-ember" size={22} strokeWidth={1.5} />
                 </div>
 
                 <div>
-
-                  <h3 className="font-semibold">
-                    {title}
-                  </h3>
+                  <h3 className="font-semibold">{title}</h3>
 
                   <p className="text-ink-soft text-sm mt-2 leading-relaxed">
                     {body}
                   </p>
-
                 </div>
-
               </div>
-
             ))}
-
           </div>
-
         </div>
-
       </section>
 
       {/* EXTRA FEATURES */}
 
       <section className="relative max-w-6xl mx-auto px-6 pb-24 z-10">
-
         <div className="grid md:grid-cols-3 gap-6">
-
           <div className="cool-card bg-white-card border border-line rounded-2xl p-7">
-
             <div className="icon-box w-11 h-11 rounded-xl bg-[#252525] flex items-center justify-center">
-
-              <Users
-                className="text-ember"
-                size={23}
-              />
-
+              <Users className="text-ember" size={23} />
             </div>
 
             <h3 className="font-display text-xl font-semibold mt-6">
@@ -1103,21 +969,14 @@ export default function App() {
             </h3>
 
             <p className="text-ink-soft text-sm mt-2 leading-relaxed">
-              Keep conversations, replies and important messages exactly
-              where you expect them.
+              Keep conversations, replies and important messages exactly where
+              you expect them.
             </p>
-
           </div>
 
           <div className="cool-card bg-white-card border border-line rounded-2xl p-7">
-
             <div className="icon-box w-11 h-11 rounded-xl bg-[#252525] flex items-center justify-center">
-
-              <Video
-                className="text-ember"
-                size={23}
-              />
-
+              <Video className="text-ember" size={23} />
             </div>
 
             <h3 className="font-display text-xl font-semibold mt-6">
@@ -1125,21 +984,14 @@ export default function App() {
             </h3>
 
             <p className="text-ink-soft text-sm mt-2 leading-relaxed">
-              Jump from messaging into a voice or video call whenever
-              you need a more personal conversation.
+              Jump from messaging into a voice or video call whenever you need a
+              more personal conversation.
             </p>
-
           </div>
 
           <div className="cool-card bg-white-card border border-line rounded-2xl p-7">
-
             <div className="icon-box w-11 h-11 rounded-xl bg-[#252525] flex items-center justify-center">
-
-              <Globe
-                className="text-ember"
-                size={23}
-              />
-
+              <Globe className="text-ember" size={23} />
             </div>
 
             <h3 className="font-display text-xl font-semibold mt-6">
@@ -1147,37 +999,25 @@ export default function App() {
             </h3>
 
             <p className="text-ink-soft text-sm mt-2 leading-relaxed">
-              Your conversations stay synchronized across your phone,
-              tablet and computer.
+              Your conversations stay synchronized across your phone, tablet and
+              computer.
             </p>
-
           </div>
-
         </div>
-
       </section>
 
       {/* CONNECTION STRIP */}
 
       <section className="relative overflow-hidden py-5 border-y border-line bg-[#202020]">
-
         <div className="flex items-center justify-center gap-5 text-xs text-ink-soft">
-
           <span className="w-2 h-2 rounded-full bg-ember animate-pulse" />
 
-          <span>
-            Your messages are moving in real time
-          </span>
+          <span>Your messages are moving in real time</span>
 
           <div className="connection-line" />
 
-          <Wifi
-            size={14}
-            className="text-ember"
-          />
-
+          <Wifi size={14} className="text-ember" />
         </div>
-
       </section>
 
       {/* DOWNLOAD */}
@@ -1186,216 +1026,133 @@ export default function App() {
         id="download"
         className="relative bg-ink py-24 scroll-mt-16 overflow-hidden"
       >
-
         <div className="absolute inset-0 opacity-30">
-
           <div className="absolute w-96 h-96 rounded-full bg-ember blur-[130px] opacity-10 top-0 left-1/2 -translate-x-1/2" />
-
         </div>
 
         <div className="relative max-w-4xl mx-auto px-6">
-
           <div className="bg-white-card border border-line rounded-[2rem] p-10 md:p-16 text-center cool-card">
-
             <div className="w-16 h-16 mx-auto rounded-2xl bg-ember flex items-center justify-center shadow-lg shadow-blue-500/10">
-
-              <Download
-                className="text-white"
-                size={28}
-              />
-
+              <Download className="text-white" size={28} />
             </div>
 
             <h2 className="font-display text-4xl md:text-5xl font-semibold mt-7">
-
               G-ChatApp
               <span className="text-ember"> everywhere.</span>
-
             </h2>
 
             <p className="text-ink-soft mt-5 max-w-lg mx-auto leading-relaxed">
-
-              Get Started with the G-ChatApp and keep your conversations with you
-              wherever you go. Fast, private and completely free to get
+              Get Started with the G-ChatApp and keep your conversations with
+              you wherever you go. Fast, private and completely free to get
               started.
-
             </p>
 
             <div className="mt-9 flex flex-wrap justify-center gap-4">
-
               <a
                 href="/signup"
                 className="cool-button bg-ember text-white font-medium px-8 py-3.5 rounded-full transition-all flex items-center gap-2"
               >
-
                 Get Started for free
-
                 <ArrowUpRight size={17} />
-
               </a>
 
               <a
                 href="#features"
                 className="border border-line text-ink font-medium px-8 py-3.5 rounded-full hover:bg-ink transition-colors"
               >
-
                 View features
-
               </a>
-
             </div>
-
           </div>
-
         </div>
-
       </section>
 
       {/* FINAL CTA */}
 
       <section className="relative bg-teal py-24 overflow-hidden">
-
         <div className="absolute w-96 h-96 rounded-full bg-white/10 blur-[100px] -top-40 -right-40" />
 
         <div className="absolute w-72 h-72 rounded-full bg-black/10 blur-[100px] -bottom-40 -left-20" />
 
         <div className="relative max-w-3xl mx-auto px-6 text-center">
-
           <div className="w-14 h-14 mx-auto rounded-2xl bg-white/10 flex items-center justify-center">
-
-            <ShieldCheck
-              className="text-paper"
-              size={29}
-              strokeWidth={1.5}
-            />
-
+            <ShieldCheck className="text-paper" size={29} strokeWidth={1.5} />
           </div>
 
           <h2 className="font-display text-4xl md:text-6xl font-semibold text-paper mt-7">
-
             Start your first
             <br />
-
-            <span className="text-white/70">
-              thread today.
-            </span>
-
+            <span className="text-white/70">thread today.</span>
           </h2>
 
           <p className="text-paper-soft mt-5 max-w-md mx-auto">
-
-            Free to download, free to use, and ready
-            in under a minute.
-
+            Free to download, free to use, and ready in under a minute.
           </p>
 
           <a
             href="/signup"
             className="cool-button inline-flex items-center gap-2 mt-9 bg-ember text-white font-medium px-8 py-3.5 rounded-full transition-all"
           >
-
             Get G-ChatApp for free
-
             <ArrowUpRight size={17} />
-
           </a>
-
         </div>
-
       </section>
 
       {/* FOOTER */}
 
       <footer className="bg-ink pt-16 pb-8">
-
         <div className="max-w-6xl mx-auto px-6">
-
           <div className="grid md:grid-cols-4 gap-10">
-
             <div>
-
               <a
                 href="#top"
                 className="font-display text-xl font-semibold text-paper flex items-center gap-2"
               >
-
                 <span className="w-7 h-7 rounded-lg bg-ember flex items-center justify-center">
-
                   <MessageCircle size={14} />
-
                 </span>
-
                 G-ChatApp
-
               </a>
 
               <p className="text-paper-soft text-sm mt-4 max-w-xs leading-relaxed">
-
                 Conversations that keep their thread.
-
               </p>
-
             </div>
 
             {footerColumns.map((col) => (
-
               <div key={col.heading}>
-
-                <p className="text-paper text-sm font-medium">
-                  {col.heading}
-                </p>
+                <p className="text-paper text-sm font-medium">{col.heading}</p>
 
                 <ul className="mt-4 space-y-3">
-
                   {col.links.map((link) => (
-
                     <li key={link.label}>
-
                       <a
                         href={link.href}
                         className="text-paper-soft text-sm hover:text-paper transition-colors"
                       >
                         {link.label}
                       </a>
-
                     </li>
-
                   ))}
-
                 </ul>
-
               </div>
-
             ))}
-
           </div>
 
           <div className="border-t border-line-dark mt-14 pt-7 text-paper-soft flex flex-col md:flex-row items-center justify-between gap-3 text-sm">
+            <span>© 2026 G-ChatApp, Inc.</span>
 
-            <span>
-              © 2026 G-ChatApp, Inc.
-            </span>
-
-            <span className= "text-xl flex items-center">
-                Gunit Singh Duggal
+            <span className="text-xl flex items-center">
+              Gunit Singh Duggal
             </span>
             <span className="flex items-center gap-2">
-
               Made for better conversations
-
-              <MessageCircle
-                size={13}
-                className="text-ember"
-              />
-
+              <MessageCircle size={13} className="text-ember" />
             </span>
-
           </div>
-
         </div>
-
       </footer>
-
     </div>
   );
 }
