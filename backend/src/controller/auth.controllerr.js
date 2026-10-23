@@ -107,8 +107,8 @@ export async function onboard(req,res){
     // only in this ,method we can req the user 
     try {
         const userId = req.user._id;
-        const{fullName, bio, nativeLanguage,learningLanguage, location} = req.body;
-        if(!fullName || !bio || !nativeLanguage || !learningLanguage || !location ) {
+        const{fullName, bio, nativeLanguage,learningLanguage, location, dob} = req.body;
+        if(!fullName || !bio || !nativeLanguage || !learningLanguage || !location || !dob ) {
             return res.status(400).json({
                 message: "All fields are required",
                 missingFields:[
@@ -116,9 +116,24 @@ export async function onboard(req,res){
                     !bio && "bio",
                     !nativeLanguage && 'nativeLanguage',
                     !learningLanguage && 'learningLanguage',
-                    !location && "location"
+                    !location && "location",
+                    !dob && "dob"
                 ].filter(Boolean), // cause this is returning false 
             })
+        }
+
+        // Validate age >= 18
+        const birthDate = new Date(dob);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        if (age < 18) {
+            return res.status(400).json({
+                message: "You must be at least 18 years old to use this platform"
+            });
         }
 
         const updateUser = await User.findByIdAndUpdate(userId,{
@@ -157,8 +172,19 @@ export async function editprofile(req, res) {
             bio,
             nativeLanguage,
             learningLanguage,
-            location
+            location,
+            dob
         } = req.body;
+
+        // Get original user to check for name change
+        const originalUser = await User.findById(userId);
+
+        // Prevent DOB change after onboarding
+        if (dob !== undefined && originalUser?.dob) {
+            return res.status(400).json({
+                message: "Date of birth cannot be changed after onboarding"
+            });
+        }
 
         // Build only the fields that were provided
         const updateData = {};
@@ -183,6 +209,11 @@ export async function editprofile(req, res) {
             updateData.location = location;
         }
 
+        // Only allow DOB to be set if not already set (for edge cases)
+        if (dob !== undefined && !originalUser?.dob) {
+            updateData.dob = dob;
+        }
+
         const updateUser = await User.findByIdAndUpdate(
             userId,
             updateData,
@@ -196,6 +227,11 @@ export async function editprofile(req, res) {
             return res.status(404).json({
                 message: "User not found"
             });
+        }
+
+        // Log name change
+        if (fullName !== undefined && originalUser && originalUser.fullName !== fullName) {
+            console.log(`📝 User ${originalUser._id} (${originalUser.email}) changed name: "${originalUser.fullName}" -> "${fullName}"`);
         }
 
         // Update user in Stream

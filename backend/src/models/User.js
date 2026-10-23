@@ -36,6 +36,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    dob: {
+      type: Date,
+      default: null,
+    },
     isOnboarded: {
       type: Boolean,
       default: false,

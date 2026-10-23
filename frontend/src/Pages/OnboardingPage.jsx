@@ -23,6 +23,7 @@ const OnboardingPage = () => {
     learningLanguage: authUser?.learningLanguage || "",
     location: authUser?.location || "",
     pfp: authUser?.pfp || "",
+    dob: authUser?.dob || "",
   });
 
   const { mutate: onboardingMutation, isPending } = useMutation({
@@ -189,7 +190,7 @@ const OnboardingPage = () => {
               </div>
             </div>
 
-            {/* LOCATION */}
+{/* LOCATION */}
             <div className="form-control">
               <label className="floating-label">
                 <span className="label-text text-xl">Location</span>
@@ -208,19 +209,26 @@ const OnboardingPage = () => {
               </div>
             </div>
 
-            {/* TODO:Dob and email confirming */}
-            {/* <div>
-                <label className="input">
-                <input type="text" placeholder="domain name" />
-                <span className="label">.com</span>
+            {/* DATE OF BIRTH */}
+            <div className="form-control">
+              <label className="floating-label">
+                <span className="label-text text-xl">Date of Birth</span>
               </label>
-              </div> */}
-            {/* <div>
-                <label className="input">
-                  <span className="label">Publish date</span>
-                  <input type="date" />
-                </label>
-              </div> */}
+              <input
+                type="date"
+                name="dob"
+                value={formState.dob}
+                onChange={(e) =>
+                  setFormState({ ...formState, dob: e.target.value })
+                }
+                className="input input-bordered w-full"
+                max={new Date().toISOString().split("T")[0]}
+                required
+              />
+              <label className="label">
+                <span className="label-text-alt text-error">You must be 18+ to use this platform</span>
+              </label>
+            </div>
 
             {/* ONBOARDING BUTTON */}
             <button

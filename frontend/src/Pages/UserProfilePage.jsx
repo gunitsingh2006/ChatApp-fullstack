@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   ArrowLeft,
   Camera,
@@ -11,11 +12,13 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import useAuthUser from "../hooks/useAuthUser";
 import useLogout from "../hooks/useLogout";
+import { editProfile } from "../lib/api";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
   const { authUser } = useAuthUser();
   const { logoutMutation } = useLogout();
+  const queryClient = useQueryClient();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [user, setUser] = useState({
     fullName: authUser.fullName,
@@ -24,9 +27,21 @@ const ProfilePage = () => {
     bio: authUser.bio,
     location: authUser.location,
     pfp: authUser.pfp,
+    dob: authUser.dob,
   });
 
   const [isEditing, setIsEditing] = useState(false);
+
+  const editProfileMutation = useMutation({
+    mutationFn: editProfile,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["authUser"] });
+      setIsEditing(false);
+    },
+    onError: (error) => {
+      console.error("Error updating profile:", error);
+    },
+  });
 
   const handleChange = (e) => {
     setUser({
@@ -36,7 +51,11 @@ const ProfilePage = () => {
   };
 
   const handleSave = () => {
-    setIsEditing(false);
+    editProfileMutation.mutate({
+      fullName: user.fullName,
+      bio: user.bio,
+      location: user.location,
+    });
   };
 
   return (
@@ -146,13 +165,14 @@ const ProfilePage = () => {
               )}
             </div>
 
-            {/* TODO:DOB */}
+            {/* DOB (not editable after onboarding) */}
             <div>
-              <label className="text-sm text-base-content/60">DOB</label>
+              <label className="text-sm text-base-content/60">Date of Birth</label>
               <div className="flex items-center gap-3 mt-2">
                 <Calendar size={18} />
-                <span>TODO : add in db then retrieve from there</span>
+                <span>{user.dob ? new Date(user.dob).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) : "Not set"}</span>
               </div>
+              <p className="text-xs text-base-content/50 mt-1">Date of birth cannot be changed after onboarding</p>
             </div>
 
             {/* Bio */}
@@ -189,13 +209,18 @@ const ProfilePage = () => {
           <Link className="mt-4 flex gap-3">
             {isEditing ? (
               <>
-                <button onClick={handleSave} className="btn btn-primary flex-1">
-                  Save Changes
+                <button
+                  onClick={handleSave}
+                  className="btn btn-primary flex-1"
+                  disabled={editProfileMutation.isPending}
+                >
+                  {editProfileMutation.isPending ? "Saving..." : "Save Changes"}
                 </button>
 
                 <button
                   onClick={() => setIsEditing(false)}
                   className="btn btn-ghost flex-1"
+                  disabled={editProfileMutation.isPending}
                 >
                   Cancel
                 </button>
@@ -205,7 +230,7 @@ const ProfilePage = () => {
                 onClick={() => setIsEditing(true)}
                 className="btn btn-primary w-full"
               >
-                Edit Profile TODOOOO
+                Edit Profile
               </button>
             )}
           </Link>
@@ -239,7 +264,6 @@ const ProfilePage = () => {
             </div>
           )}
 
-          {/* TODO:Logout */}
           <Link>
             <button
               className="btn btn-error btn-outline w-full mt-4 gap-2"
